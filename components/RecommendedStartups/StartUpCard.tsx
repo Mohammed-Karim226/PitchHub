@@ -1,16 +1,25 @@
-import { IPost } from "@/types";
-import { Eye } from "lucide-react";
+"use client";
+// import { IPost } from "@/types";
+import { Eye, Clock } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../ui/button";
+import { Author, Startup } from "@/sanity/types";
 
+export type IPost = Omit<Startup, "author"> & { author?: Author };
 const StartUpCard = ({ post }: { post: IPost }) => {
+  const formattedDate = new Intl.DateTimeFormat("en-US", {
+    dateStyle: "medium",
+    timeStyle: "short",
+  }).format(new Date(post?._createdAt));
+
   return (
     <div className="flex flex-col p-6 gap-3 w-[320px] h-[470px] border border-slate-100 rounded-lg shadow-lg bg-white hover:shadow-xl transition-shadow duration-300">
       {/* Date and Views */}
       <div className="flex w-full justify-between items-center mb-2">
-        <div className="px-3 text-sm font-semibold py-1 bg-orange-200/70 text-slate-700 rounded-full">
-          {post?._createdAt}
+        <div className="flex items-center gap-2 px-3 text-sm font-semibold py-1 bg-orange-200/70 text-slate-700 rounded-full">
+          <Clock className="text-slate-700" width={20} height={20} />
+          <span>{formattedDate}</span>
         </div>
         <div className="flex items-center gap-1 text-gray-500">
           <Eye width={20} height={20} color="#FF6B6B" />
