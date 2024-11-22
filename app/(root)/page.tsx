@@ -7,10 +7,11 @@ export default async function Home({
   searchParams: Promise<{ query?: string }>;
 }) {
   const query = (await searchParams).query;
+
   return (
     <section className="flex bg-white flex-col justify-center items-center gap-1">
       <HeroSection query={query} />
-      <RecommendedStartups query={query} />
+      <RecommendedStartups query={query} params={{ search: query || null }} />
     </section>
   );
 }

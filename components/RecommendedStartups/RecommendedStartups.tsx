@@ -2,9 +2,18 @@ import StartUpCard, { IPost } from "./StartUpCard";
 import { sanityFetch, SanityLive } from "@/sanity/lib/live";
 import { STARTUPS_QUERY } from "@/sanity/lib/queries";
 
-const RecommendedStartups = async ({ query }: { query?: string }) => {
+const RecommendedStartups = async ({
+  query,
+  params,
+}: {
+  query?: string;
+  params: { search: string | null };
+}) => {
   // const posts = await client.fetch(STARTUPS_QUERY);
-  const { data: posts } = await sanityFetch({ query: STARTUPS_QUERY });
+  const { data: posts } = await sanityFetch({
+    query: STARTUPS_QUERY,
+    params,
+  });
 
   return (
     <section className="flex py-6 flex-col w-full justify-center items-center gap-2">
