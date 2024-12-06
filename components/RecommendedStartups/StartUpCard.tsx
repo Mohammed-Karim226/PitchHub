@@ -1,12 +1,15 @@
 "use client";
-// import { IPost } from "@/types";
+
 import { Eye, Clock } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion"; // Import motion from framer-motion
 import { Button } from "../ui/button";
 import { Author, Startup } from "@/sanity/types";
+import { formatedViews } from "@/lib/utils";
 
 export type IPost = Omit<Startup, "author"> & { author?: Author };
+
 const StartUpCard = ({ post }: { post: IPost }) => {
   const formattedDate = new Intl.DateTimeFormat("en-US", {
     dateStyle: "medium",
@@ -14,7 +17,13 @@ const StartUpCard = ({ post }: { post: IPost }) => {
   }).format(new Date(post?._createdAt));
 
   return (
-    <div className="flex flex-col p-6 gap-3 w-[320px] h-[470px] border border-slate-100 rounded-lg shadow-lg bg-white hover:shadow-xl transition-shadow duration-300">
+    <motion.div
+      initial={{ opacity: 0, y: 30 }} // Initial state (hidden and shifted down)
+      whileInView={{ opacity: 1, y: 0 }} // Animation on entering the viewport
+      viewport={{ once: true, amount: 0.2 }} // Trigger animation only once when 20% of the card is visible
+      transition={{ duration: 0.5, ease: "easeOut" }} // Smooth animation transition
+      className="flex flex-col p-6 gap-3 w-[320px] h-[470px]  border border-slate-100 rounded-lg shadow-lg bg-white hover:shadow-xl transition-shadow duration-300"
+    >
       {/* Date and Views */}
       <div className="flex w-full justify-between items-center mb-2">
         <div className="flex items-center gap-2 px-3 text-sm font-semibold py-1 bg-orange-200/70 text-slate-700 rounded-full">
@@ -23,7 +32,9 @@ const StartUpCard = ({ post }: { post: IPost }) => {
         </div>
         <div className="flex items-center gap-1 text-gray-500">
           <Eye width={20} height={20} color="#FF6B6B" />
-          <p className="text-sm font-semibold">{post?.views}</p>
+          <p className="text-sm font-semibold">
+            {formatedViews(Number(post?.views))}
+          </p>
         </div>
       </div>
 
@@ -44,17 +55,17 @@ const StartUpCard = ({ post }: { post: IPost }) => {
         </div>
         <Link href={`/user/${post?.author?._id}`}>
           <Image
-            src="https://placehold.co/45x45"
+            src={post?.author?.image || "https://placehold.co/45x45"}
             alt="avatar"
-            width={45}
-            height={45}
-            className="rounded-full border border-gray-300"
+            width={50}
+            height={50}
+            className="rounded-full border border-gray-300 p-1"
           />
         </Link>
       </div>
 
       {/* Description */}
-      <p className="text-sm text-gray-600 mb-2 line-clamp-3">
+      <p className="text-sm capitalize text-gray-600 mb-2 line-clamp-3">
         {post?.description}
       </p>
 
@@ -71,8 +82,11 @@ const StartUpCard = ({ post }: { post: IPost }) => {
 
       {/* Category and Button */}
       <div className="flex w-full justify-between items-center">
-        <Link href={`/?query=${post?.category.toLowerCase()}`}>
-          <p className="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors duration-200">
+        <Link
+          href={`/?query=${post?.category.toLowerCase()}`}
+          className="rounded-2xl border border-indigo-600 hover:border-slate-300"
+        >
+          <p className="text-sm font-medium text-gray-700 hover:text-slate-100 hover:bg-indigo-600 capitalize rounded-xl transition-colors px-3 py-1 duration-200">
             {post?.category}
           </p>
         </Link>
@@ -85,7 +99,7 @@ const StartUpCard = ({ post }: { post: IPost }) => {
           </Link>
         </Button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

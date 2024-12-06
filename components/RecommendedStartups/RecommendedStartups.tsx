@@ -1,6 +1,7 @@
 import StartUpCard, { IPost } from "./StartUpCard";
 import { sanityFetch, SanityLive } from "@/sanity/lib/live";
 import { STARTUPS_QUERY } from "@/sanity/lib/queries";
+import { DotIcon } from "lucide-react";
 
 const RecommendedStartups = async ({
   query,
@@ -9,16 +10,16 @@ const RecommendedStartups = async ({
   query?: string;
   params: { search: string | null };
 }) => {
-  // const posts = await client.fetch(STARTUPS_QUERY);
   const { data: posts } = await sanityFetch({
     query: STARTUPS_QUERY,
     params,
   });
 
   return (
-    <section className="flex py-6 flex-col w-full justify-center items-center gap-2">
-      <div className=" w-full p-4 flex justify-start items-start ">
-        <h1 className="capitalize text-start w-full text-3xl font-semibold text-black">
+    <section className="flex bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-100 py-6 flex-col w-full justify-center items-center gap-2">
+      <div className=" w-full p-4 flex justify-start items-center ">
+        <DotIcon width={40} height={40} />
+        <h1 className="capitalize text-start w-full max-sm:text-xl text-3xl font-semibold text-indigo-600">
           {query ? `Search Results For ${query}` : "Recommended Startups"}
         </h1>
       </div>
