@@ -70,3 +70,17 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* For Firefox */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+/* Apply to the desired container */
+.no-scrollbar {
+  overflow: auto;
+}

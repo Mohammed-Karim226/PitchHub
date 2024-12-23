@@ -1,4 +1,3 @@
-import { UserIcon } from "lucide-react";
 import { defineField, defineType } from "sanity";
 
 export const startup = defineType({
@@ -6,15 +5,30 @@ export const startup = defineType({
   title: "Startup",
   type: "document",
   fields: [
-    defineField({ name: "title", type: "string" }),
-    defineField({ name: "slug", type: "slug", options: { source: "title" } }),
+    defineField({
+      name: "title",
+      type: "string",
+    }),
+    defineField({
+      name: "slug",
+      type: "slug",
+      options: {
+        source: "title",
+      },
+    }),
     defineField({
       name: "author",
       type: "reference",
-      to: { type: "author" },
+      to: [{ type: "author" }],
     }),
-    defineField({ name: "views", type: "number" }),
-    defineField({ name: "description", type: "text" }),
+    defineField({
+      name: "views",
+      type: "number",
+    }),
+    defineField({
+      name: "description",
+      type: "text",
+    }),
     defineField({
       name: "category",
       type: "string",
@@ -26,6 +40,9 @@ export const startup = defineType({
       type: "url",
       validation: (Rule) => Rule.required(),
     }),
-    defineField({ name: "pitch", type: "markdown" }),
+    defineField({
+      name: "pitch",
+      type: "markdown",
+    }),
   ],
 });

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { Skeleton } from "../ui/skeleton";
 import View from "./View";
+import markdownit from "markdown-it";
 
 // import markdown from ''
 interface IAuthor {
@@ -27,19 +28,25 @@ export interface IPost {
 }
 
 const PostPage = ({ post }: { post: IPost }) => {
+  const md = markdownit();
+  // const result = md.render("# markdown-it rulezz!");
+
   const renderPitchContent = (pitch: string) => {
-    return pitch
-      .split("\n")
-      .map((line) => {
-        if (line.includes("environment")) {
-          return `<p class="mb-4"><span class="text-green-700 font-semibold">🌿 ${line}</span></p>`;
-        } else if (line.includes("growth")) {
-          return `<p class="mb-4"><span class="text-blue-700 font-semibold">📈 ${line}</span></p>`;
-        } else {
-          return `<p class="mb-4">${line}</p>`;
-        }
-      })
-      .join("");
+    // Render Markdown content
+    const rawHTML = md.render(pitch);
+
+    // Add custom enhancements
+    const enhancedHTML = rawHTML
+      .replace(
+        /(environment)/gi,
+        `<span class="text-green-700 font-semibold">🌿 $1</span>`
+      )
+      .replace(
+        /(growth)/gi,
+        `<span class="text-blue-700 font-semibold">📈 $1</span>`
+      );
+
+    return enhancedHTML;
   };
 
   // Example Usage
