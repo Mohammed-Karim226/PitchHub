@@ -1,5 +1,7 @@
 import { auth } from "@/auth";
-import StartupForm from "@/components/StartupForm/StartupForm";
+import MainStartup from "@/components/StartupForm/MainStartup";
+import { sanityFetch } from "@/sanity/lib/live";
+import { ALL_POSTS_QUERY } from "@/sanity/lib/queries";
 import { redirect } from "next/navigation";
 
 const page = async () => {
@@ -7,7 +9,11 @@ const page = async () => {
 
   if (!session) redirect("/");
 
-  return <StartupForm />;
+  const { data: posts } = await sanityFetch({
+    query: ALL_POSTS_QUERY,
+  });
+
+  return <MainStartup posts={posts} />;
 };
 
 export default page;

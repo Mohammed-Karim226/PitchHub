@@ -16,6 +16,39 @@ export const STARTUPS_QUERY = defineQuery(`
   
 `);
 
+export const ALL_POSTS_QUERY = defineQuery(`
+*[_type == "startup"] | order(_createdAt desc) {
+  _id,
+  title,
+  slug,
+  _createdAt,
+  author -> {
+    _id, name, image, bio
+  },
+  views,
+  content,
+  category,
+  image
+}
+`);
+
+// Query to fetch startups created on the current day
+export const LATEST_STARTUPS_QUERY = defineQuery(`
+*[_type == "startup" && date(_createdAt) == date(now())] | order(_createdAt desc){
+  _id,
+  title,
+  slug,
+  _createdAt,
+  author -> {
+    _id, name, image, bio
+  },
+  views,
+  description,
+  category,
+  image
+}
+`);
+
 export const QUERY_BY_ID = defineQuery(
   `
   *[_type == "startup" && _id == $id][0] {
@@ -43,12 +76,13 @@ export const QUERY_STARTUP_VIEWS = defineQuery(
 );
 
 export const AUTHOR_BY_GITHUB_ID_QUERY = defineQuery(`
-*[_type == 'author' && _id == $id][0] {
-_id,
-id,
-username,
-email,
-image,
-bio
+*[_type == "author" && id == $id][0]{
+    _id,
+    id,
+    name,
+    username,
+    email,
+    image,
+    bio
 }
 `);

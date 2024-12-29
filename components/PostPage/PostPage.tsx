@@ -25,6 +25,7 @@ export interface IPost {
   image: string;
   pitch: string;
   title: string;
+  length?: number;
 }
 
 const PostPage = ({ post }: { post: IPost }) => {
@@ -99,7 +100,7 @@ const PostPage = ({ post }: { post: IPost }) => {
             </div>
             {/* Logo or Icon */}
             <Image
-              src={post.image}
+              src={post?.image}
               alt="Category"
               width={150}
               height={150}
@@ -111,7 +112,7 @@ const PostPage = ({ post }: { post: IPost }) => {
           <div className="mt-6 max-sm:flex-wrap flex items-center gap-4 text-gray-600">
             <div className="flex items-center gap-2">
               <Star width={20} height={20} className="text-yellow-500" />
-              <span>{post.views} reviews</span>
+              <span>{post?.views} reviews</span>
             </div>
             <div>•</div>
             <div className="flex items-center gap-2">
