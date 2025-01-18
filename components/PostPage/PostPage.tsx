@@ -6,7 +6,6 @@ import { Skeleton } from "../ui/skeleton";
 import View from "./View";
 import markdownit from "markdown-it";
 
-// import markdown from ''
 interface IAuthor {
   bio: string;
   _id: string;
@@ -88,7 +87,7 @@ const PostPage = ({ post }: { post: IPost }) => {
 
         {/* Main Card Section */}
         <div className="bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-100 shadow-lg rounded-lg p-8">
-          <div className="flex justify-between items-center max-sm:flex-col">
+          <div className="flex overflow-hidden justify-between items-center max-sm:flex-col">
             {/* Title and Description */}
             <div>
               <h2 className="text-3xl capitalize font-bold text-gray-800">
@@ -99,13 +98,15 @@ const PostPage = ({ post }: { post: IPost }) => {
               </h2>
             </div>
             {/* Logo or Icon */}
-            <Image
+           <div className="size-[150px] max-sm:mt-2 rounded-full overflow-hidden bg-white border border-slate-50 flex justify-center items-center">
+           <Image
               src={post?.image}
               alt="Category"
               width={150}
               height={150}
-              className="rounded-full shadow-md hover:scale-110 transition-transform"
+              className="object-cover shadow-md hover:scale-110 transition-transform"
             />
+           </div>
           </div>
 
           {/* Ratings Section */}
@@ -204,26 +205,6 @@ const PostPage = ({ post }: { post: IPost }) => {
 
           {/* Bottom Border */}
           <div className="mt-6 w-full h-1 rounded-lg bg-gradient-to-r from-indigo-500 to-purple-500"></div>
-        </div>
-        <div className="mt-8 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-100 p-8 rounded-2xl shadow-2xl relative overflow-hidden">
-          {/* Decorative Gradient Circles */}
-          <div className="absolute top-0 left-0 w-32 h-32 bg-purple-300 rounded-full blur-3xl opacity-30 -z-10"></div>
-          <div className="absolute bottom-0 right-0 w-40 h-40 bg-pink-300 rounded-full blur-3xl opacity-30 -z-10"></div>
-
-          {/* Section Title */}
-          <div className="flex items-center gap-2 mb-6">
-            <div className="p-3 bg-indigo-600 text-white rounded-full shadow-md">
-              <Image
-                src={"/award.png"}
-                alt="recommended"
-                width={25}
-                height={25}
-              />
-            </div>
-            <h3 className="text-2xl font-bold text-gray-800 tracking-wide">
-              Recommended Startups
-            </h3>
-          </div>
         </div>
       </div>
     </section>

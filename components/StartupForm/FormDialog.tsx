@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
 import { Image, Lightbulb, Presentation, Rocket, Type } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { object, z } from "zod";
+import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -101,7 +101,7 @@ const FormDialog = () => {
       formData.append("pitch", values.pitch);
 
       await formSchema.parseAsync(Object.fromEntries(formData));
-      const result = await createPitch(formData, pitch);
+      await createPitch(formData, pitch);
 
       setIsPending(false);
       toast.toast({
@@ -110,10 +110,11 @@ const FormDialog = () => {
       });
       form.reset();
       setPitch("");
-    } catch (error) {
+    } catch (error: unknown) {
+      const err = error as Error;
       toast.toast({
         title: "Error",
-        description: "There was an issue submitting your startup pitch.",
+        description: `There was an issue submitting your startup pitch, ${err.message}`,
         variant: "destructive",
       });
     }
@@ -173,7 +174,7 @@ const FormDialog = () => {
                   {
                     name: "image" as const,
                     placeholder: "Image/Link",
-                    icon: <Image />,
+                    icon: <Image width={24} height={24} />,
                   },
                 ].map((field) => (
                   <FormField
