@@ -1,10 +1,11 @@
 "use client";
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
-import { Image, Lightbulb, Presentation, Rocket, Type } from "lucide-react";
+import { Lightbulb, Presentation, Rocket, Type, Image } from "lucide-react";
+
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -21,14 +22,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+
 import { createPitch } from "@/lib/actions";
 
 const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
@@ -68,14 +62,9 @@ const formSchema = z.object({
     .trim(),
 });
 
-const FormDialog = () => {
+const PostForm = () => {
   const [pitch, setPitch] = useState("");
-  const [isHydrated, setIsHydrated] = useState(false);
   const [isPending, setIsPending] = useState(false);
-
-  useEffect(() => {
-    setIsHydrated(true);
-  }, []);
 
   const toast = useToast();
 
@@ -101,7 +90,7 @@ const FormDialog = () => {
       formData.append("pitch", values.pitch);
 
       await formSchema.parseAsync(Object.fromEntries(formData));
-      await createPitch(formData, pitch);
+      const result = await createPitch(formData, pitch);
 
       setIsPending(false);
       toast.toast({
@@ -110,27 +99,20 @@ const FormDialog = () => {
       });
       form.reset();
       setPitch("");
-    } catch (error: unknown) {
-      const err = error as Error;
+    } catch (error) {
       toast.toast({
         title: "Error",
-        description: `There was an issue submitting your startup pitch, ${err.message}`,
+        description: "There was an issue submitting your startup pitch.",
         variant: "destructive",
       });
     }
   };
 
   return (
-    <Dialog>
-      <DialogTrigger className="bg-gradient-to-r rounded-lg from-blue-500 text-white to-purple-600 text-xl font-normal px-2 py-1">
-        Create Startup
-      </DialogTrigger>
-      <DialogTitle>
-        <DialogContent className="overflow-auto h-full pt-12 pb-4 no-scrollbar">
-          <DialogHeader>
-            <DialogDescription>
-              <div className="w-full flex z-0 justify-center flex-col items-center bg-gradient-to-r rounded-t-lg from-blue-500 to-purple-600">
-                {isHydrated && (
+<section className="flex flex-col justify-center items-center w-full">
+
+              <div className="w-full flex z-0 justify-center flex-col items-center bg-gradient-to-r from-blue-500 to-purple-600">
+              
                   <motion.div
                     initial={{ opacity: 0, y: -50 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -150,10 +132,9 @@ const FormDialog = () => {
                       world!
                     </p>
                   </motion.div>
-                )}
+               
               </div>
-            </DialogDescription>
-          </DialogHeader>
+              
           <div className="flex z-10 w-full max-w-4xl px-6 py-8 bg-white justify-center items-center flex-col  rounded-t-2xl">
             <Form {...form}>
               <form
@@ -173,7 +154,7 @@ const FormDialog = () => {
                   },
                   {
                     name: "image" as const,
-                    placeholder: "Image/Link",
+                    placeholder: "Image",
                     icon: <Image width={24} height={24} />,
                   },
                 ].map((field) => (
@@ -223,7 +204,7 @@ const FormDialog = () => {
                 />
 
                 <div className="container" data-color-mode="light">
-                  {isHydrated && (
+                  
                     <MDEditor
                       value={pitch}
                       onChange={(value) => {
@@ -238,7 +219,7 @@ const FormDialog = () => {
                       }}
                       previewOptions={{ disallowedElements: ["style"] }}
                     />
-                  )}
+                
                 </div>
                 <Button
                   type="submit"
@@ -250,10 +231,9 @@ const FormDialog = () => {
               </form>
             </Form>
           </div>
-        </DialogContent>
-      </DialogTitle>
-    </Dialog>
+          
+       </section> 
   );
 };
 
-export default FormDialog;
+export default PostForm;

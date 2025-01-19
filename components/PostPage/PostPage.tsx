@@ -29,24 +29,12 @@ export interface IPost {
 
 const PostPage = ({ post }: { post: IPost }) => {
   const md = markdownit();
-  // const result = md.render("# markdown-it rulezz!");
 
   const renderPitchContent = (pitch: string) => {
-    // Render Markdown content
+
     const rawHTML = md.render(pitch);
 
-    // Add custom enhancements
-    const enhancedHTML = rawHTML
-      .replace(
-        /(environment)/gi,
-        `<span class="text-green-700 font-semibold">🌿 $1</span>`
-      )
-      .replace(
-        /(growth)/gi,
-        `<span class="text-blue-700 font-semibold">📈 $1</span>`
-      );
-
-    return enhancedHTML;
+    return rawHTML;
   };
 
   // Example Usage
