@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import NProgressProvider from "@/components/Providers/NProgressProvider";
+import Theme from "@/components/Providers/Theme";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -23,12 +25,17 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <Theme>
+          <NProgressProvider>
+           {children}
+          </NProgressProvider>
+        </Theme>
       </body>
     </html>
   );

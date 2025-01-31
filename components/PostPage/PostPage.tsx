@@ -40,7 +40,7 @@ const PostPage = ({ post }: { post: IPost }) => {
   // Example Usage
   const pitchHTML = renderPitchContent(post.pitch);
   return (
-    <section className="bg-gray-50 relative py-12 px-6 md:px-12 lg:px-20">
+    <section className="bg-gray-50 h-screen relative py-12 px-6 md:px-12 lg:px-20">
       <div className="absolute top-6 left-10 max-sm:left-4 max-sm:pointer-events-auto">
         <Link href={"/"}>
           <ArrowLeftCircle width={40} height={40} className="max-sm:size-7" />
@@ -86,15 +86,15 @@ const PostPage = ({ post }: { post: IPost }) => {
               </h2>
             </div>
             {/* Logo or Icon */}
-           <div className="size-[150px] max-sm:mt-2 rounded-full overflow-hidden bg-white border border-slate-50 flex justify-center items-center">
-           <Image
-              src={post?.image}
-              alt="Category"
-              width={150}
-              height={150}
-              className="object-cover shadow-md hover:scale-110 transition-transform"
-            />
-           </div>
+            <div className="w-[130px] h-[130px] max-sm:mt-2 rounded-full overflow-hidden bg-white border border-slate-50 flex justify-center items-center">
+  <Image
+    src={post?.image}
+    alt="Category"
+    width={130}
+    height={130}
+    className="object-cover shadow-md hover:scale-110 transition-transform"
+  />
+</div>
           </div>
 
           {/* Ratings Section */}

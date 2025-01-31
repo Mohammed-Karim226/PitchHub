@@ -21,7 +21,7 @@ const ChartsAndInfo = ({ posts }: { posts: IPost[] }) => {
         </div>
         <div className="flex w-full justify-center gap-2 items-center flex-col m">
           <TopAuthors posts={posts} />
-          <RecentPosts posts={posts} />
+          <RecentPosts posts={posts || []} />
         </div>
       </div>
     </section>

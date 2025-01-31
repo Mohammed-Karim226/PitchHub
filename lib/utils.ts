@@ -6,12 +6,12 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const formatedViews = (viewNo: number): string => {
-  if (viewNo >= 1_000_000) {
+  if (viewNo && viewNo >= 1_000_000) {
     return `${(viewNo / 1_000_000).toFixed(1).replace(/\.0$/, "")}M`;
   } else if (viewNo >= 1_000) {
     return `${(viewNo / 1_000).toFixed(1).replace(/\.0$/, "")}K`;
   } else {
-    return viewNo.toString();
+    return viewNo?.toString();
   }
 };
 

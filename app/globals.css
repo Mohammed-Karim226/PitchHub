@@ -84,3 +84,17 @@ body {
 .no-scrollbar {
   overflow: auto;
 }
+
+#nprogress .bar {
+  background: #339ce2; /* Change the color of the progress bar */
+  height: 3px; /* Change the height of the progress bar */
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 10px #4791f1, 0 0 5px #4791f1; /* Change the shadow color */
+}
+
+/* Hide the spinner */
+#nprogress .spinner {
+  display: none !important;
+}

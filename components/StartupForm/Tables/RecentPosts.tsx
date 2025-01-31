@@ -9,9 +9,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+
+import Lottie from "lottie-react";
+import nodata from "../../lottie/NoData.json";
+
 import { IPost } from "@/components/PostPage/PostPage";
 
-export function RecentPosts({ posts }: { posts: IPost[] }) {
+
+
+export function RecentPosts({ posts = [] }: { posts: IPost[] }) {
   return (
     <Card className="w-full h-full">
       <CardHeader>
@@ -28,16 +34,19 @@ export function RecentPosts({ posts }: { posts: IPost[] }) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {posts.slice(0, 5).map((post) => (
-              <TableRow key={post?._id}>
+            {posts.slice(0, 5).map((post) => {
+              return (
+              post ? ( <TableRow key={post?._id}>
                 <TableCell className="font-medium">{post.title}</TableCell>
                 <TableCell>{post?.author?.name}</TableCell>
                 <TableCell>{post?.category}</TableCell>
                 <TableCell className="text-right">
                   {parseInt(post?.views).toLocaleString()}
                 </TableCell>
-              </TableRow>
-            ))}
+              </TableRow>) : (<TableRow>
+                <TableCell>Test</TableCell>
+              </TableRow>)
+           ) })}
           </TableBody>
         </Table>
       </CardContent>
