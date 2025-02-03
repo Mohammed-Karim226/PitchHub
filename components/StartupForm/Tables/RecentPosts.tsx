@@ -10,10 +10,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import Lottie from "lottie-react";
-import nodata from "../../lottie/NoData.json";
-
 import { IPost } from "@/components/PostPage/PostPage";
+import DeleteDialog from "./DeleteDialog";
 
 
 
@@ -31,6 +29,7 @@ export function RecentPosts({ posts = [] }: { posts: IPost[] }) {
               <TableHead>Author</TableHead>
               <TableHead>Category</TableHead>
               <TableHead className="text-right">Views</TableHead>
+              <TableHead className="text-right">More</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -42,6 +41,10 @@ export function RecentPosts({ posts = [] }: { posts: IPost[] }) {
                 <TableCell>{post?.category}</TableCell>
                 <TableCell className="text-right">
                   {parseInt(post?.views).toLocaleString()}
+                </TableCell>
+                <TableCell className="text-right flex justify-end items-center">
+                  {/* <MenuIcon className="cursor-pointer"/> */}
+                  <DeleteDialog pitchId={post?._id}/>
                 </TableCell>
               </TableRow>) : (<TableRow>
                 <TableCell>Test</TableCell>

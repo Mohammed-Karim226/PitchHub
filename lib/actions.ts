@@ -53,3 +53,29 @@ export const createPitch = async (form: FormData, pitch: string) => {
     });
   }
 };
+
+export const deletePitch = async (pitchId: string) =>{
+  const session = await auth();
+
+  if (!session)
+    return parseServerActionResponse({
+      error: "Not signed in",
+      status: "ERROR",
+    });
+
+  try {
+    const result = await writeClient.delete(pitchId);
+
+    return parseServerActionResponse({
+      ...result,
+      error: "",
+      status: "SUCCESS",
+    });
+  } catch (error) {
+
+    return parseServerActionResponse({
+      error: JSON.stringify(error),
+      status: "ERROR",
+    });
+  }
+}
