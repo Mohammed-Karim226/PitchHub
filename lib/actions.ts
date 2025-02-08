@@ -54,6 +54,59 @@ export const createPitch = async (form: FormData, pitch: string) => {
   }
 };
 
+export const updatePitch = async (pitchId: string, form: FormData) => {
+  const session = await auth();
+
+  if (!session)
+    return parseServerActionResponse({
+      error: "Not signed in",
+      status: "ERROR",
+    });
+
+    if(!form){
+      return parseServerActionResponse({
+        error: "No form data for this pitch.",
+        status: "ERROR",
+      });
+    }
+
+    try {
+      const pitch = await writeClient.fetch(
+        `*[_type == "startup" && _id == $pitchId][0] { _id, author }`,
+        { pitchId }
+      );
+
+      if(!pitch){
+        return parseServerActionResponse({
+          error: "Pitch not found.",
+          status: "ERROR",
+        });
+      }
+
+      if (pitch.author._ref !== session.id) {
+        return parseServerActionResponse({
+          error: "Unauthorized",
+          status: "ERROR",
+        });
+      }
+
+      const updatedPitch = await writeClient.patch(pitchId).set(Object.fromEntries(form)).commit();
+
+      return parseServerActionResponse({
+        ...updatedPitch,
+        error: "",
+        status: "SUCCESS",
+      })
+    } catch (error) {
+      return parseServerActionResponse({
+        error: JSON.stringify(error),
+        status: "ERROR",
+      });
+    }
+   
+   
+}
+
 export const deletePitch = async (pitchId: string) =>{
   const session = await auth();
 

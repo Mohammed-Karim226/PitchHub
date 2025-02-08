@@ -14,7 +14,7 @@ export function MetricsGrid({ posts }: { posts: IPost[] }) {
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
       <MetricCard
         title="Total Views"
-        value={totalViews.toLocaleString()}
+        value={totalViews.toLocaleString() ?? 0}
         Icon={Eye}
         border="border-green-500"
         bg="bg-green-500/10"

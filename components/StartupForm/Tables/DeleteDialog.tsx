@@ -12,6 +12,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { deletePitch } from "@/lib/actions";
+import { useRouter } from "next/navigation";
 
 interface DeleteDialogProps {
   pitchId: string;
@@ -21,10 +22,12 @@ const DeleteDialog = ({ pitchId }: DeleteDialogProps) => {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
 
+  const router  = useRouter();
   const handleDelete = async () => {
     setLoading(true);
     try {
       await deletePitch(pitchId);
+      router.refresh();
     } catch (error) {
       console.error("Failed to delete pitch:", error);
     } finally {
@@ -36,7 +39,7 @@ const DeleteDialog = ({ pitchId }: DeleteDialogProps) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="destructive">Delete Post</Button>
+        <Button className="rounded-3xl bg-red-500/90 hover:bg-red-500 px-2 py-1">Delete Post</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[400px]">
         <DialogHeader>

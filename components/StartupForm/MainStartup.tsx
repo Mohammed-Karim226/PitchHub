@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { IPost } from "../PostPage/PostPage";
 import ChartsAndInfo from "./ChartsAndInfo";
-import FormDialog from "./PostForm";
 
 const StartupFormHeader = ({ posts }: { posts: IPost [] }) => {
   return (
