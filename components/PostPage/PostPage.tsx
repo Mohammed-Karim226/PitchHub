@@ -99,10 +99,6 @@ const PostPage = ({ post }: { post: IPost }) => {
 
           {/* Ratings Section */}
           <div className="mt-6 max-sm:flex-wrap flex items-center gap-4 text-gray-600">
-            <div className="flex items-center gap-2">
-              <Star width={20} height={20} className="text-yellow-500" />
-              <span>{post?.views} reviews</span>
-            </div>
             <div>•</div>
             <div className="flex items-center gap-2">
               <User width={20} height={20} />

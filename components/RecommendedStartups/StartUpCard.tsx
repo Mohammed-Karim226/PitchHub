@@ -92,26 +92,48 @@ const StartUpCard = ({ post }: { post: IPost }) => {
 
       {/* Category and Button */}
       <div className="flex w-full justify-between items-center">
-        <Link
-          href={`/?query=${post?.category.toLowerCase()}`}
-          className="rounded-2xl border border-indigo-600 hover:border-slate-300"
+  <Link
+    href={`/?query=${post?.category.toLowerCase()}`}
+    className="relative inline-flex items-center justify-center overflow-hidden text-indigo-600 rounded-2xl border border-indigo-600 hover:border-slate-300 transition-all duration-300 group"
+  >
+    <p
+      className="relative text-sm font-medium capitalize px-4 py-2 bg-transparent transition-colors duration-200 rounded-xl 
+      group-hover:text-slate-100 group-hover:bg-indigo-600 flex items-center gap-1"
+    >
+        {post?.category}
+    </p>
+  </Link>
+
+  <Button
+    className="relative rounded-3xl group px-4 py-2 bg-indigo-600 text-white font-semibold border border-indigo-600 transition-all duration-300 ease-in-out 
+    hover:bg-indigo-700 flex items-center gap-2 overflow-hidden"
+    onClick={() => handleNavigate(`/startup/${post?._id}`)}
+    disabled={isLoading}
+  >
+    {isLoading ? (
+      <Loader className="animate-spin text-white" width={20} height={20} />
+    ) : (
+      <>
+        <motion.span
+          initial={{ x: -10, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.3 }}
+          className="text-sm"
         >
-          <p className="text-sm font-medium text-indigo-600 hover:text-slate-100 hover:bg-indigo-600 capitalize rounded-xl transition-colors px-3 py-1 duration-200">
-            {post?.category}
-          </p>
-        </Link>
-        <Button
-          className="rounded-3xl group px-3 py-1 bg-white border border-indigo-600 hover:bg-indigo-600/80 transition-colors duration-200 flex items-center justify-center"
-          onClick={() => handleNavigate(`/startup/${post?._id}`)}
-          disabled={isLoading}
+          Details
+        </motion.span>
+        <motion.span
+          initial={{ x: 10, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.3, delay: 0.1 }}
+          className="group-hover:translate-x-1 transition-transform duration-300"
         >
-          {isLoading ? (
-            <Loader className="animate-spin text-indigo-900" width={25} height={25}  />
-          ) : (
-            <span className="text-sm text-indigo-600 group-hover:text-white font-semibold">Details</span>
-          )}
-        </Button>
-      </div>
+          🚀
+        </motion.span>
+      </>
+    )}
+  </Button>
+</div>
     </motion.div>
   );
 };

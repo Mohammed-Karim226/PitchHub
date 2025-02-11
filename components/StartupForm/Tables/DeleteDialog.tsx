@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import { deletePitch } from "@/lib/actions";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/hooks/use-toast";
 
 interface DeleteDialogProps {
   pitchId: string;
@@ -23,10 +24,14 @@ const DeleteDialog = ({ pitchId }: DeleteDialogProps) => {
   const [open, setOpen] = useState(false);
 
   const router  = useRouter();
+  const toast = useToast();
+
+
   const handleDelete = async () => {
     setLoading(true);
     try {
       await deletePitch(pitchId);
+      toast.toast({ title: "Success", description: "Pitch deleted successfully!" });
       router.refresh();
     } catch (error) {
       console.error("Failed to delete pitch:", error);
@@ -39,7 +44,7 @@ const DeleteDialog = ({ pitchId }: DeleteDialogProps) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="rounded-3xl bg-red-500/90 hover:bg-red-500 px-2 py-1">Delete Post</Button>
+        <Button className="rounded-3xl bg-red-500/90 hover:bg-red-500 px-2 h-6 text-[14px] py-1">Delete Post</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[400px]">
         <DialogHeader>

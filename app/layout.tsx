@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import NProgressProvider from "@/components/Providers/NProgressProvider";
 import Theme from "@/components/Providers/Theme";
+import { Toaster } from "@/components/ui/toaster"
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -35,6 +36,7 @@ export default function RootLayout({
           <NProgressProvider>
            {children}
           </NProgressProvider>
+          <Toaster />
         </Theme>
       </body>
     </html>

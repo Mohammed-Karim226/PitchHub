@@ -113,25 +113,61 @@ const PostForm = () => {
 
               <div className="w-full flex z-0 justify-center flex-col items-center bg-gradient-to-r from-blue-500 to-purple-600">
               
-                  <motion.div
-                    initial={{ opacity: 0, y: -50 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1 }}
-                    className="text-center flex flex-col justify-center items-center mt-4 py-6"
-                  >
-                    <div className="flex justify-center items-center gap-6 mb-6">
-                      <Lightbulb className="text-yellow-300 w-10 h-10 animate-bounce" />
-                      <Rocket className="text-red-400 w-10 h-10 animate-bounce delay-150" />
-                      <Presentation className="text-green-300 w-10 h-10 animate-bounce delay-300" />
-                    </div>
-                    <h1 className="text-xl md:text-3xl font-bold text-white drop-shadow-md">
-                      Submit Your Startup Pitch
-                    </h1>
-                    <p className="mt-4 text-lg md:text-xl text-gray-100">
-                      Bring your ideas to life and share your vision with the
-                      world!
-                    </p>
-                  </motion.div>
+              <motion.div
+  initial={{ opacity: 0, y: -50, scale: 0.9 }}
+  animate={{ opacity: 1, y: 0, scale: 1 }}
+  transition={{ duration: 1, ease: "easeOut" }}
+  className="relative w-full flex flex-col items-center justify-center bg-gradient-to-r from-blue-500 to-purple-600 overflow-hidden py-10"
+>
+  {/* Subtle background glow */}
+  <div className="absolute inset-0 bg-gradient-to-t from-purple-700 via-transparent to-blue-500 opacity-40 blur-2xl" />
+
+  {/* Floating Animated Icons */}
+  <div className="flex justify-center items-center gap-8 mb-6 relative z-10">
+    <motion.div
+      initial={{ y: 0, rotate: 0 }}
+      animate={{ y: [-10, 10, -10], rotate: [-5, 5, -5] }}
+      transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+    >
+      <Lightbulb className="text-yellow-300 w-12 h-12 drop-shadow-lg" />
+    </motion.div>
+
+    <motion.div
+      initial={{ y: 0, rotate: 0 }}
+      animate={{ y: [-8, 8, -8], rotate: [5, -5, 5] }}
+      transition={{ repeat: Infinity, duration: 3, ease: "easeInOut", delay: 0.2 }}
+    >
+      <Rocket className="text-red-400 w-12 h-12 drop-shadow-lg" />
+    </motion.div>
+
+    <motion.div
+      initial={{ y: 0, rotate: 0 }}
+      animate={{ y: [-12, 12, -12], rotate: [-3, 3, -3] }}
+      transition={{ repeat: Infinity, duration: 3, ease: "easeInOut", delay: 0.4 }}
+    >
+      <Presentation className="text-green-300 w-12 h-12 drop-shadow-lg" />
+    </motion.div>
+  </div>
+
+  {/* Header and Description */}
+  <motion.h1
+    initial={{ opacity: 0, y: 30 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 1, delay: 0.5 }}
+    className="text-2xl md:text-4xl font-extrabold text-white tracking-wide drop-shadow-lg"
+  >
+    Submit Your Startup Pitch 🚀
+  </motion.h1>
+
+  <motion.p
+    initial={{ opacity: 0, y: 30 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 1, delay: 0.7 }}
+    className="mt-4 text-lg md:text-xl text-gray-100 px-6 text-center"
+  >
+    Bring your ideas to life and share your vision with the world!
+  </motion.p>
+</motion.div>
                
               </div>
               

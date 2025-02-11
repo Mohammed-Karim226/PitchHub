@@ -92,7 +92,7 @@ const UpdateDialog = ({ pitchId }: {pitchId: string}) => {
   return (
     <Sheet onOpenChange={setOpen} open={open}>
       <SheetTrigger asChild>
-        <Button className="rounded-3xl bg-green-500/90 hover:bg-green-500 px-2 py-1">Update Post</Button>
+        <Button className="rounded-3xl bg-green-500/90 hover:bg-green-500 px-2 h-6 text-[14px] py-1">Update Post</Button>
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>

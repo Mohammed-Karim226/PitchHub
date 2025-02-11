@@ -31,7 +31,7 @@ export function RecentPosts({ posts = [] }: { posts: IPost[] }) {
               <TableHead className="font-semibold text-gray-700">Title</TableHead>
               <TableHead className="font-semibold text-gray-700">Author</TableHead>
               <TableHead className="font-semibold text-gray-700">Category</TableHead>
-              <TableHead className="font-semibold text-gray-700 text-right">
+              <TableHead className="font-semibold text-gray-700 text-center">
                 Views
               </TableHead>
               <TableHead className="font-semibold text-gray-700 text-right">
@@ -67,7 +67,7 @@ export function RecentPosts({ posts = [] }: { posts: IPost[] }) {
                   <TableCell className="text-gray-700">
                     {post?.category || "Uncategorized"}
                   </TableCell>
-                  <TableCell className="text-right text-gray-700">
+                  <TableCell className="text-center text-gray-700">
                     {parseInt(post?.views).toLocaleString()}
                   </TableCell>
                   <TableCell className="text-right">

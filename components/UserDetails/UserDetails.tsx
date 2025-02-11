@@ -15,8 +15,6 @@ interface IUserDetails {
   bio?: string;
   _id?: string;
   role?: string;
-  lastLogin?: string;
-  joinDate?: string;
   socialLinks?: {
     twitter?: string;
     linkedin?: string;
@@ -25,7 +23,7 @@ interface IUserDetails {
 }
 
 const UserDetails = ({ user }: { user: IUserDetails }) => {
-  const { name, username, email, image, bio, role, lastLogin, joinDate, socialLinks } = user;
+  const { name, username, email, image, bio, role, socialLinks } = user;
 
   return (
     <motion.div
@@ -76,22 +74,6 @@ const UserDetails = ({ user }: { user: IUserDetails }) => {
               <div>
                 <p className="text-sm font-medium text-gray-800">Role:</p>
                 <p className="text-sm text-gray-600">{role || "Member"}</p>
-              </div>
-            </div>
-
-            {/* Join Date & Last Login */}
-            <div className="mt-4 flex items-start gap-4">
-              <Calendar className="w-6 h-6 text-gray-500" />
-              <div>
-                <p className="text-sm font-medium text-gray-800">Joined:</p>
-                <p className="text-sm text-gray-600">{joinDate || "N/A"}</p>
-              </div>
-            </div>
-            <div className="mt-2 flex items-start gap-4">
-              <Globe className="w-6 h-6 text-gray-500" />
-              <div>
-                <p className="text-sm font-medium text-gray-800">Last Login:</p>
-                <p className="text-sm text-gray-600">{lastLogin || "Unknown"}</p>
               </div>
             </div>
 
