@@ -75,7 +75,7 @@ const StartUpCard = ({ post }: { post: IPost }) => {
       </div>
 
       {/* Description */}
-      <p className="text-sm capitalize text-gray-600 mb-2 line-clamp-3">
+      <p className="text-sm capitalize h-16 overflow-ellipsis py-2 text-gray-600 mb-2 line-clamp-3">
         {post?.description}
       </p>
 

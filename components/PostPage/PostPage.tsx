@@ -40,7 +40,7 @@ const PostPage = ({ post }: { post: IPost }) => {
   // Example Usage
   const pitchHTML = renderPitchContent(post.pitch);
   return (
-    <section className="bg-gray-50 h-screen relative py-12 px-6 md:px-12 lg:px-20">
+    <section className="bg-gray-50 h-full relative py-12 px-6 md:px-12 lg:px-20">
       <div className="absolute top-6 left-10 max-sm:left-4 max-sm:pointer-events-auto">
         <Link href={"/"}>
           <ArrowLeftCircle width={40} height={40} className="max-sm:size-7" />

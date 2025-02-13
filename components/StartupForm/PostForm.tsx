@@ -34,10 +34,7 @@ const formSchema = z.object({
     .max(100, { message: "Title must not exceed 100 characters." })
     .trim(),
   description: z
-    .string()
-    .min(10, { message: "Description must be at least 10 characters." })
-    .max(500, { message: "Description must not exceed 500 characters." })
-    .trim(),
+    .string().optional(),
   category: z
     .string()
     .regex(/^[A-Za-z\s]+$/, { message: "Category must only contain letters." })
@@ -55,11 +52,7 @@ const formSchema = z.object({
         return false;
       }
     }),
-  pitch: z
-    .string()
-    .min(20, { message: "Pitch must be at least 20 characters." })
-    .max(1000, { message: "Pitch must not exceed 1000 characters." })
-    .trim(),
+  pitch: z.string().optional(),
 });
 
 const PostForm = () => {
@@ -84,10 +77,14 @@ const PostForm = () => {
     try {
       const formData = new FormData();
       formData.append("title", values.title);
-      formData.append("description", values.description);
+      if(values.description) {
+        formData.append("description", values.description);
+      }
       formData.append("category", values.category);
       formData.append("image", values.image);
-      formData.append("pitch", values.pitch);
+      if(values.pitch) {
+        formData.append("pitch", values.pitch);
+      }
 
       await formSchema.parseAsync(Object.fromEntries(formData));
       const result = await createPitch(formData, pitch);
@@ -211,7 +208,7 @@ const PostForm = () => {
                             <Input
                               placeholder={field.placeholder}
                               {...fieldProps}
-                              className="w-full  h-[55px] rounded-full pl-12 focus:ring-2 focus:ring-purple-500"
+                              className="w-full placeholder:text-slate-50 h-[55px] rounded-full pl-12 focus:ring-2 focus:ring-purple-500"
                             />
                           </div>
                         </FormControl>
@@ -229,9 +226,9 @@ const PostForm = () => {
                       <FormLabel>Description</FormLabel>
                       <FormControl>
                         <Textarea
-                          placeholder="Description"
+                          placeholder="Write a short description of your startup (or leave blank to auto-generate a compelling one!)"
                           {...field}
-                          className="w-full  h-[120px] rounded-2xl focus:ring-2 focus:ring-purple-500"
+                          className="w-full placeholder:text-slate-400 h-[120px] rounded-2xl focus:ring-2 focus:ring-purple-500"
                         />
                       </FormControl>
                       <FormMessage />
@@ -251,7 +248,7 @@ const PostForm = () => {
                       height={300}
                       style={{ borderRadius: 20, overflow: "hidden" }}
                       textareaProps={{
-                        placeholder: "Describe your idea...",
+                        placeholder: "Write your startup pitch here (or leave blank to auto-generate a detailed, professional pitch!)",
                       }}
                       previewOptions={{ disallowedElements: ["style"] }}
                     />

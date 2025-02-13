@@ -4,7 +4,9 @@ import { auth } from "@/auth";
 import { parseServerActionResponse } from "@/lib/utils";
 import slugify from "slugify";
 import { writeClient } from "@/sanity/lib/write-client";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 export const createPitch = async (form: FormData, pitch: string) => {
   const session = await auth();
 
@@ -21,9 +23,38 @@ export const createPitch = async (form: FormData, pitch: string) => {
   const slug = slugify(title as string, { lower: true, strict: true });
 
   try {
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+    const promptOne = `Generate a compelling startup pitch description with 150 words.
+    Title: ${title}
+    Category: ${category}`;
+
+    const promptTwo = `Generate a compelling startup pitch content that follwoing MD formatting with 500 words.
+    Title: ${title}
+    Category: ${category}`;
+
+    let AI_Description = "";
+    let AI_Content = "";
+
+
+   if(!description){
+    const descriptionResult = await model.generateContentStream(promptOne);
+    for await (const chunk of descriptionResult.stream) {
+      AI_Description += chunk.text();
+    }
+   }
+
+
+ if(!pitch){
+  const contentResult = await model.generateContentStream(promptTwo);
+  for await (const chunk of contentResult.stream) {
+    AI_Content += chunk.text();
+  }
+ }
+    
     const startup = {
       title,
-      description,
+      description: description || AI_Description,
       category,
       image,
       slug: {
@@ -34,7 +65,7 @@ export const createPitch = async (form: FormData, pitch: string) => {
         _type: "reference",
         _ref: session?.id,
       },
-      pitch,
+      pitch: pitch || AI_Content,
     };
 
     const result = await writeClient.create({ _type: "startup", ...startup });

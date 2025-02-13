@@ -1,10 +1,12 @@
 "use client";
+import { useState } from "react";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
   TableBody,
   TableCell,
+  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -14,8 +16,29 @@ import { IPost } from "@/components/PostPage/PostPage";
 import DeleteDialog from "./DeleteDialog";
 import UpdateDialog from "./UpdateDialog";
 
+
 export function RecentPosts({ posts = [] }: { posts: IPost[] }) {
   const isEmpty = posts.length === 0;
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 5;
+
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+
+  const totalPages = Math.ceil(posts.length / postsPerPage);
+
+  const handleNext = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePrev = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
 
   return (
     <Card className="w-full h-full shadow-lg rounded-lg overflow-hidden border border-gray-200">
@@ -53,7 +76,7 @@ export function RecentPosts({ posts = [] }: { posts: IPost[] }) {
                 </TableCell>
               </TableRow>
             ) : (
-              posts.slice(0, 5).map((post) => (
+              currentPosts.map((post) => (
                 <TableRow
                   key={post._id}
                   className="hover:bg-gray-50 transition-colors"
@@ -82,6 +105,25 @@ export function RecentPosts({ posts = [] }: { posts: IPost[] }) {
           </TableBody>
         </Table>
       </CardContent>
+      <CardFooter className="flex justify-between items-center">
+      <button
+          onClick={handlePrev}
+          disabled={currentPage === 1}
+          className="text-indigo-600 font-semibold disabled:opacity-50"
+        >
+          Previous
+        </button>
+        <span className="text-gray-700">
+          Page {currentPage} of {totalPages}
+        </span>
+        <button
+          onClick={handleNext}
+          disabled={currentPage === totalPages}
+          className="text-indigo-600 font-semibold disabled:opacity-50"
+        >
+          Next
+        </button>
+      </CardFooter>
     </Card>
   );
 }
