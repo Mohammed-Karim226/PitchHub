@@ -33,10 +33,10 @@ import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   title: z.string().min(2).max(100).trim(),
-  description: z.string().min(10).max(500).trim(),
+  description: z.string(),
   category: z.string().regex(/^[A-Za-z\s]+$/).min(3),
   image: z.string().url(),
-  pitch: z.string().min(20).max(1000).trim(),
+  pitch: z.string(),
 });
 
 const UpdateDialog = ({ pitchId }: {pitchId: string}) => {

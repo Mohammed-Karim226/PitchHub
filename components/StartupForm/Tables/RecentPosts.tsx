@@ -15,6 +15,8 @@ import {
 import { IPost } from "@/components/PostPage/PostPage";
 import DeleteDialog from "./DeleteDialog";
 import UpdateDialog from "./UpdateDialog";
+import { SquareArrowLeft, SquareArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 
 
 export function RecentPosts({ posts = [] }: { posts: IPost[] }) {
@@ -77,9 +79,13 @@ export function RecentPosts({ posts = [] }: { posts: IPost[] }) {
               </TableRow>
             ) : (
               currentPosts.map((post) => (
-                <TableRow
-                  key={post._id}
-                  className="hover:bg-gray-50 transition-colors"
+                <motion.tr
+                key={post._id}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, y: 0.95 }}
+                transition={{ duration: 0.3 }}
+                className="hover:bg-gray-50 transition-colors border-b border-gray-200"
                 >
                   <TableCell className="font-medium text-gray-900">
                     {post.title}
@@ -99,7 +105,7 @@ export function RecentPosts({ posts = [] }: { posts: IPost[] }) {
                   <TableCell className="text-right">
                     <UpdateDialog pitchId={post._id} />
                   </TableCell>
-                </TableRow>
+                </motion.tr>
               ))
             )}
           </TableBody>
@@ -109,19 +115,21 @@ export function RecentPosts({ posts = [] }: { posts: IPost[] }) {
       <button
           onClick={handlePrev}
           disabled={currentPage === 1}
-          className="text-indigo-600 font-semibold disabled:opacity-50"
+          className="text-indigo-600 disabled:cursor-not-allowed font-semibold disabled:opacity-50"
         >
-          Previous
+          <SquareArrowLeft size={24} />
         </button>
-        <span className="text-gray-700">
-          Page {currentPage} of {totalPages}
+        <span className="text-base flex text-indigo-600 justify-center items-center">
+          Page <p className="size-5 flex justify-center items-center
+          bg-slate-100 px-1 py-0 text-[14px] mx-2 border border-slate-300 rounded-sm">{currentPage}</p> of <p className="size-5 flex justify-center items-center
+          bg-slate-100 px-1 py-0 text-[14px] mx-2 border border-slate-300 rounded-sm">{totalPages}</p>
         </span>
         <button
           onClick={handleNext}
           disabled={currentPage === totalPages}
-          className="text-indigo-600 font-semibold disabled:opacity-50"
+          className="text-indigo-600 font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          Next
+          <SquareArrowRight size={24} />
         </button>
       </CardFooter>
     </Card>
