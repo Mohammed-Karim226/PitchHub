@@ -106,69 +106,11 @@ const PostForm = () => {
   };
 
   return (
-<section className="flex flex-col justify-center items-center w-full">
+<section className="flex justify-between items-center w-full">
 
-              <div className="w-full flex z-0 justify-center flex-col items-center bg-gradient-to-r from-blue-500 to-purple-600">
+            
               
-              <motion.div
-  initial={{ opacity: 0, y: -50, scale: 0.9 }}
-  animate={{ opacity: 1, y: 0, scale: 1 }}
-  transition={{ duration: 1, ease: "easeOut" }}
-  className="relative w-full flex flex-col items-center justify-center bg-gradient-to-r from-blue-500 to-purple-600 overflow-hidden py-10"
->
-  {/* Subtle background glow */}
-  <div className="absolute inset-0 bg-gradient-to-t from-purple-700 via-transparent to-blue-500 opacity-40 blur-2xl" />
-
-  {/* Floating Animated Icons */}
-  <div className="flex justify-center items-center gap-8 mb-6 relative z-10">
-    <motion.div
-      initial={{ y: 0, rotate: 0 }}
-      animate={{ y: [-10, 10, -10], rotate: [-5, 5, -5] }}
-      transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-    >
-      <Lightbulb className="text-yellow-300 w-12 h-12 drop-shadow-lg" />
-    </motion.div>
-
-    <motion.div
-      initial={{ y: 0, rotate: 0 }}
-      animate={{ y: [-8, 8, -8], rotate: [5, -5, 5] }}
-      transition={{ repeat: Infinity, duration: 3, ease: "easeInOut", delay: 0.2 }}
-    >
-      <Rocket className="text-red-400 w-12 h-12 drop-shadow-lg" />
-    </motion.div>
-
-    <motion.div
-      initial={{ y: 0, rotate: 0 }}
-      animate={{ y: [-12, 12, -12], rotate: [-3, 3, -3] }}
-      transition={{ repeat: Infinity, duration: 3, ease: "easeInOut", delay: 0.4 }}
-    >
-      <Presentation className="text-green-300 w-12 h-12 drop-shadow-lg" />
-    </motion.div>
-  </div>
-
-  {/* Header and Description */}
-  <motion.h1
-    initial={{ opacity: 0, y: 30 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 1, delay: 0.5 }}
-    className="text-2xl md:text-4xl font-extrabold text-white tracking-wide drop-shadow-lg"
-  >
-    Submit Your Startup Pitch 🚀
-  </motion.h1>
-
-  <motion.p
-    initial={{ opacity: 0, y: 30 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 1, delay: 0.7 }}
-    className="mt-4 text-lg md:text-xl text-gray-100 px-6 text-center"
-  >
-    Bring your ideas to life and share your vision with the world!
-  </motion.p>
-</motion.div>
-               
-              </div>
-              
-          <div className="flex z-10 w-full max-w-4xl px-6 py-8 bg-white justify-center items-center flex-col  rounded-t-2xl">
+          <div className="flex w-1/2 z-10 max-sm:w-full max-w-4xl px-12 max-sm:px-7 py-8 bg-white justify-center items-center flex-col  rounded-t-2xl">
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
@@ -197,7 +139,7 @@ const PostForm = () => {
                     name={field.name}
                     render={({ field: fieldProps }) => (
                       <FormItem>
-                        <FormLabel>{field.placeholder}</FormLabel>
+                        <FormLabel className="text-base font-medium text-slate-500">{field.placeholder}</FormLabel>
                         <FormControl>
                           <div className="relative">
                             {field.icon && (
@@ -208,7 +150,7 @@ const PostForm = () => {
                             <Input
                               placeholder={field.placeholder}
                               {...fieldProps}
-                              className="w-full placeholder:text-slate-50 h-[55px] rounded-full pl-12 focus:ring-2 focus:ring-purple-500"
+                              className="w-full placeholder:text-slate-400 h-[55px] rounded-full pl-12 focus:ring-2 focus:ring-purple-500"
                             />
                           </div>
                         </FormControl>
@@ -223,7 +165,7 @@ const PostForm = () => {
                   name="description"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Description</FormLabel>
+                      <FormLabel className="text-base font-medium text-slate-500">Description</FormLabel>
                       <FormControl>
                         <Textarea
                           placeholder="Write a short description of your startup (or leave blank to auto-generate a compelling one!)"
@@ -236,8 +178,8 @@ const PostForm = () => {
                   )}
                 />
 
-                <div className="container" data-color-mode="light">
-                  
+                <div className="container gap-2 w-full flex flex-col justify-start items-start" data-color-mode="light">
+                  <p className="text-base font-medium text-slate-500">Details</p>
                     <MDEditor
                       value={pitch}
                       onChange={(value) => {
@@ -246,7 +188,7 @@ const PostForm = () => {
                       }}
                       preview="edit"
                       height={300}
-                      style={{ borderRadius: 20, overflow: "hidden" }}
+                      style={{ borderRadius: 20, overflow: "hidden", width: "100%" }}
                       textareaProps={{
                         placeholder: "Write your startup pitch here (or leave blank to auto-generate a detailed, professional pitch!)",
                       }}
@@ -264,7 +206,11 @@ const PostForm = () => {
               </form>
             </Form>
           </div>
-          
+          <div className="w-1/2 max-sm:hidden flex z-0 justify-center flex-col items-center bg-gradient-to-r from-blue-500 to-purple-600">
+              
+              hello
+                
+               </div>
        </section> 
   );
 };

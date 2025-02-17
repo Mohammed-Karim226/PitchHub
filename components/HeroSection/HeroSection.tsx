@@ -13,7 +13,7 @@ const HeroSection = ({ query }: { query?: string }) => {
         className="absolute inset-0 w-full h-full object-cover z-0 blur-sm"
       />
       <div className="flex z-10 justify-center items-center flex-col gap-4">
-        <Image src={"/hero.svg"} alt="hero" width={300} height={300} priority />
+        <p className="flex justify-center items-center px-4 py-2 bg-yellow-400 rounded-sm text-base font-medium">Pitch, Vote, And Grow</p>
         <div className="bg-slate-950/90 w-[970px] max-sm:w-[390px]  h-[160px] flex justify-center items-center py-2 rounded-md">
           <h1 className="text-6xl max-sm:text-xl text-center font-bold text-white">
             Pitch Your Startup, Connect with Entrepreneurs

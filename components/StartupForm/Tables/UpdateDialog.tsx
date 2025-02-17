@@ -78,13 +78,17 @@ const UpdateDialog = ({ pitchId }: {pitchId: string}) => {
       Object.entries(values).forEach(([key, value]) => {
         formData.append(key, value);
       });
-      await updatePitch(pitchId, formData);
+      const res = await updatePitch(pitchId, formData);
+      if(res.status !== "SUCCESS"){
+        throw new Error(res.error || "Failed to update pitch. Unauthorized user.");
+      }
       toast.toast({ title: "Success", description: "Pitch updated successfully!" });
       setIsPending(false);
       setOpen(false);
       router.refresh();
-    } catch (error) {
-      toast.toast({ title: "Error", description: "Failed to update pitch.", variant: "destructive" });
+    } catch (error: unknown) {
+      const err = error as unknown as { message: string, code: number };
+      toast.toast({ title: `${err.message}`, description: "Failed to update pitch. Unauthorized user.", variant: "destructive" });
       setIsPending(false);
     }
   };
