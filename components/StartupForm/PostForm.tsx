@@ -3,8 +3,7 @@ import dynamic from "next/dynamic";
 import { useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { motion } from "framer-motion";
-import { Lightbulb, Presentation, Rocket, Type, Image } from "lucide-react";
+import { Lightbulb, Type, Image } from "lucide-react";
 
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -22,8 +21,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 
-
 import { createPitch } from "@/lib/actions";
+import { CardStackDemo } from "./Highlight ";
 
 const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
 
@@ -206,11 +205,9 @@ const PostForm = () => {
               </form>
             </Form>
           </div>
-          <div className="w-1/2 max-sm:hidden flex z-0 justify-center flex-col items-center bg-gradient-to-r from-blue-500 to-purple-600">
-              
-              hello
-                
-               </div>
+          <div className="w-1/2 max-sm:hidden flex justify-center h-screen items-center bg-slate-100/60">
+         <CardStackDemo />
+          </div>
        </section> 
   );
 };

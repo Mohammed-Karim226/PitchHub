@@ -46,7 +46,7 @@ const NavBar = async () => {
               </form>
 
               <Link
-                href={`/user/${session?.user?.id}`}
+                href={`/user/${session?.id}`}
                 className="flex items-center gap-1 text-gray-500 text-lg hover:text-yellow-600 font-medium transition duration-150"
               >
                 <User className="w-5 h-5" />

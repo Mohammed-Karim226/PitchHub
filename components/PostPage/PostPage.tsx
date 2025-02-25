@@ -78,7 +78,7 @@ const PostPage = ({ post }: { post: IPost }) => {
           <div className="flex overflow-hidden justify-between items-center max-sm:flex-col">
             {/* Title and Description */}
             <div>
-              <h2 className="text-3xl capitalize font-bold text-gray-800">
+              <h2 className="text-3xl max-sm:text-center capitalize font-bold text-gray-800">
                 Master Modern {post.category} <br />
                 <span className="text-gradient text-indigo-600">
                   With a Project-Based Approach
@@ -98,13 +98,13 @@ const PostPage = ({ post }: { post: IPost }) => {
           </div>
 
           {/* Ratings Section */}
-          <div className="mt-6 max-sm:flex-wrap flex items-center gap-4 text-gray-600">
-            <div>•</div>
+          <div className="mt-6 max-sm:flex-col max-sm:justify-start max-sm:items-start flex items-center gap-4 text-gray-600">
+            <div className="max-sm:hidden">•</div>
             <div className="flex items-center gap-2">
               <User width={20} height={20} />
               <span>{post.author.name}</span>
             </div>
-            <div>•</div>
+            <div className="max-sm:hidden">•</div>
             <div className="flex items-center gap-2">
               <Image
                 src={"/categories.png"}
@@ -116,7 +116,7 @@ const PostPage = ({ post }: { post: IPost }) => {
                 {post?.category}
               </span>
             </div>
-            <div>•</div>
+            <div className="max-sm:hidden">•</div>
             <div className="flex items-center gap-2">
               <Image
                 src={"/view.png"}
