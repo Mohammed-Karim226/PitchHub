@@ -30,11 +30,16 @@ const DeleteDialog = ({ pitchId }: DeleteDialogProps) => {
   const handleDelete = async () => {
     setLoading(true);
     try {
-      await deletePitch(pitchId);
+
+     const res = await deletePitch(pitchId);
+     if(res.status !== "SUCCESS"){
+      throw new Error(res.error || "Failed to update pitch. Unauthorized user.");
+     }
       toast.toast({ title: "Success", description: "Pitch deleted successfully!" });
       router.refresh();
     } catch (error) {
-      console.error("Failed to delete pitch:", error);
+      const err = error as unknown as { message: string, code: number };
+      toast.toast({ title: `${err.message}`, description: "Failed to delete the pitch. ", variant: "destructive" });
     } finally {
       setLoading(false);
       setOpen(false);

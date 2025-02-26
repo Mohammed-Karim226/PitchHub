@@ -141,13 +141,24 @@ export const updatePitch = async (pitchId: string, form: FormData) => {
 export const deletePitch = async (pitchId: string) =>{
   const session = await auth();
 
-  if (!session)
-    return parseServerActionResponse({
-      error: "Not signed in",
-      status: "ERROR",
-    });
-
   try {
+
+    if (!session)
+      return parseServerActionResponse({
+        error: "Not signed in",
+        status: "ERROR",
+      });
+      const pitch = await writeClient.fetch(
+        `*[_type == "startup" && _id == $pitchId][0] { _id, author }`,
+        { pitchId }
+      );
+      if (pitch.author._ref !== session.id) {
+        return parseServerActionResponse({
+          error: "Unauthorized",
+          status: "ERROR",
+        });
+      }
+
     const result = await writeClient.delete(pitchId);
 
     return parseServerActionResponse({
