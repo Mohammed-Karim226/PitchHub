@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, memo } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -19,7 +19,7 @@ interface DeleteDialogProps {
   pitchId: string;
 }
 
-const DeleteDialog = ({ pitchId }: DeleteDialogProps) => {
+const DeleteDialog = memo(({ pitchId }: DeleteDialogProps) => {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -36,7 +36,7 @@ const DeleteDialog = ({ pitchId }: DeleteDialogProps) => {
       throw new Error(res.error || "Failed to update pitch. Unauthorized user.");
      }
       toast.toast({ title: "Success", description: "Pitch deleted successfully!" });
-      router.refresh();
+      // router.refresh();
     } catch (error) {
       const err = error as unknown as { message: string, code: number };
       toast.toast({ title: `${err.message}`, description: "Failed to delete the pitch. ", variant: "destructive" });
@@ -73,6 +73,6 @@ const DeleteDialog = ({ pitchId }: DeleteDialogProps) => {
       </DialogContent>
     </Dialog>
   );
-};
+});
 
 export default DeleteDialog;

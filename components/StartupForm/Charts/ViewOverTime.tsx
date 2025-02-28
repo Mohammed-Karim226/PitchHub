@@ -37,7 +37,7 @@ export function ViewsOverTime({ posts }: { posts: IPost[] }) {
     datasets: [
       {
         label: "Views",
-        data: sortedPosts.map((post) => parseInt(post.views)),
+        data: sortedPosts.map((post) => parseInt(post.views ?? 1)),
         borderColor: "hsl(231, 60%, 46%)",
         backgroundColor: "hsl(231, 60%, 46%)",
         fill: true,

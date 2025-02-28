@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import dynamic from "next/dynamic";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -17,7 +17,10 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { updatePitch } from "@/lib/actions";
-const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
+const MDEditor = dynamic(() => import("@uiw/react-md-editor"), {
+  ssr: false,
+  loading: () => <p>Loading editor...</p>, // Optional loading component
+});
 import { Input } from "@/components/ui/input";
 import {
   Sheet,
@@ -39,7 +42,7 @@ const formSchema = z.object({
   pitch: z.string(),
 });
 
-const UpdateDialog = ({ pitchId }: {pitchId: string}) => {
+const UpdateDialog = memo(({ pitchId }: {pitchId: string}) => {
   const [data, setData] = useState(null);
   const [open, setOpen] = useState(false);
   const [pitch, setPitch] = useState("");
@@ -82,10 +85,11 @@ const UpdateDialog = ({ pitchId }: {pitchId: string}) => {
       if(res.status !== "SUCCESS"){
         throw new Error(res.error || "Failed to update pitch. Unauthorized user.");
       }
-      toast.toast({ title: "Success", description: "Pitch updated successfully!" });
+     
       setIsPending(false);
       setOpen(false);
       router.refresh();
+      toast.toast({ title: "Success", description: "Pitch updated successfully!" });
     } catch (error: unknown) {
       const err = error as unknown as { message: string, code: number };
       toast.toast({ title: `${err.message}`, description: "Failed to update pitch. Unauthorized user.", variant: "destructive" });
@@ -146,6 +150,6 @@ const UpdateDialog = ({ pitchId }: {pitchId: string}) => {
       </SheetContent>
     </Sheet>
   );
-};
+});
 
 export default UpdateDialog;

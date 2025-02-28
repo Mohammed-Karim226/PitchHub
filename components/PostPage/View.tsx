@@ -18,18 +18,19 @@ const MatchedPosts = async ({ id }: { id: string }) => {
       .fetch(QUERY_STARTUP_VIEWS, { id });
 
     // Increment based on the latest value
+    const safeLatestViews  = latestViews ?? 0;
     await writeClient
       .patch(id)
-      .set({ views: latestViews + 1 })
+      .set({ views: safeLatestViews + 1 })
       .commit();
   });
-
+  const safeCurrentViews = currentViews ?? 0;
   return (
     <div className="flex justify-center items-center">
       <div className="text-center flex justify-start items-center">
         <p className="text-base font-normal text-gray-500 mr-1">Views: </p>
         <h1 className="text-base font-extrabold text-blue-600 transition-all duration-700 ease-in-out animate-pulse">
-          {formatedViews(currentViews)}
+          {formatedViews(safeCurrentViews)}
         </h1>
       </div>
     </div>

@@ -33,7 +33,7 @@ export function ViewsByCategory({ posts }: { posts: IPost[] }) {
     datasets: [
       {
         label: "Views",
-        data: categoryData.map((item) => item.views),
+        data: categoryData.map((item) => item.views ?? 1),
         backgroundColor: "hsl(231, 60%, 46%)",
         borderColor: "hsl(231, 60%, 46%)",
         borderWidth: 1,

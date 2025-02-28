@@ -1,9 +1,20 @@
 import { IPost } from "@/components/PostPage/PostPage";
 
 export function calculateMetrics(posts: IPost[]) {
-  const totalViews = posts.reduce((sum, post) => sum + parseInt(post.views), 0);
+  if (!Array.isArray(posts)) {
+    return {
+      totalViews: 1,
+      totalPosts: 1,
+      avgViewsPerPost: 1,
+      uniqueAuthors: 1,
+    };
+  }
+  const totalViews = posts.reduce((sum, post) => {
+    const views = parseInt(post.views, 10); // Convert to integer
+    return sum + (isNaN(views) ? 1 : views); // Add 0 if views is NaN
+  }, 0);
   const totalPosts = posts.length;
-  const avgViewsPerPost = Math.round(totalViews / totalPosts);
+  const avgViewsPerPost = totalPosts > 0 ? Math.round(totalViews / totalPosts) : 0;
   const uniqueAuthors = new Set(posts.map((post) => post?.author?._id)).size;
 
   return {
@@ -19,14 +30,19 @@ export function prepareCategoryData(posts: IPost[]) {
     const existingCategory = acc.find(
       (item) => item.category === post.category
     );
+
+    // Parse views, defaulting to 0 if invalid or missing
+    const views = parseInt(post.views, 10);
+    const safeViews = isNaN(views) ? 0 : views;
+
     if (existingCategory) {
       existingCategory.count += 1;
-      existingCategory.views += parseInt(post.views);
+      existingCategory.views += safeViews;
     } else {
       acc.push({
         category: post.category,
         count: 1,
-        views: parseInt(post.views),
+        views: safeViews,
       });
     }
     return acc;
@@ -45,7 +61,12 @@ export function prepareAuthorData(posts: IPost[]) {
           if (!acc[_id]) {
             acc[_id] = { name, totalViews: 0 };
           }
-          acc[_id].totalViews += parseInt(post.views, 10);
+
+          // Parse views, defaulting to 0 if invalid or missing
+          const views = parseInt(post.views, 10);
+          const safeViews = isNaN(views) ? 0 : views;
+
+          acc[_id].totalViews += safeViews;
         }
       }
       return acc;

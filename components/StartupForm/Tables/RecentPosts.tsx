@@ -97,7 +97,7 @@ export function RecentPosts({ posts = [] }: { posts: IPost[] }) {
                     {post?.category || "Uncategorized"}
                   </TableCell>
                   <TableCell className="text-center text-gray-700">
-                    {parseInt(post?.views).toLocaleString()}
+                    {parseInt(post?.views ?? 0).toLocaleString()}
                   </TableCell>
                   <TableCell className="text-right">
                     <DeleteDialog pitchId={post._id} />
