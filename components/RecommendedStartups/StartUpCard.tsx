@@ -49,21 +49,21 @@ const StartUpCard = ({ post }: { post: IPost }) => {
       </div>
 
       {/* Title and Author */}
-      <div className="flex w-full justify-between items-start">
-        <div>
+      <div className="flex w-full overflow-hidden justify-between items-start">
+        <div className="w-[70%] overflow-hidden">
           <Link
             href={`/user/${post?.author?._id}`}
             className="text-gray-800 font-medium"
           >
             {post?.author?.name}
           </Link>
-          <Link href={`/startup/${post?._id}`}>
-            <h1 className="text-2xl font-semibold text-gray-900 leading-snug hover:text-black transition-colors duration-200">
+          <Link href={`/startup/${post?._id}`} className="w-[70%] h-auto text-ellipsis">
+            <h1 className="text-2xl  font-semibold text-gray-900 text-ellipsis leading-snug hover:text-black transition-colors duration-200">
               {post?.title}
             </h1>
           </Link>
         </div>
-        <Link href={`/user/${post?.author?._id}`}>
+        <Link href={`/user/${post?.author?._id}`} className="max-w-[30%]">
           <Image
             src={post?.author?.image || "https://placehold.co/45x45"}
             alt="avatar"

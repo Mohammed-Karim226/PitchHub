@@ -36,7 +36,7 @@ const DeleteDialog = memo(({ pitchId }: DeleteDialogProps) => {
       throw new Error(res.error || "Failed to update pitch. Unauthorized user.");
      }
       toast.toast({ title: "Success", description: "Pitch deleted successfully!" });
-      // router.refresh();
+      router.prefetch("/startup/create");
     } catch (error) {
       const err = error as unknown as { message: string, code: number };
       toast.toast({ title: `${err.message}`, description: "Failed to delete the pitch. ", variant: "destructive" });

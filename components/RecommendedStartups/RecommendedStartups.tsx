@@ -23,7 +23,6 @@ const RecommendedStartups = async ({
           {query ? `Search Results For ${query}` : "Recommended Startups"}
         </h1>
       </div>
-      {/* loop through cards */}
       <div className="flex justify-center items-center flex-wrap max-sm:flex-col gap-2">
         {posts?.length > 0 ? (
           posts?.map((post: IPost) => (

@@ -53,13 +53,13 @@ const UpdateDialog = memo(({ pitchId }: {pitchId: string}) => {
 
   useEffect(() => {
     if (open) {
-      const fetchData = async () => {
+      const fetchedData = async () => {
         const fetchedData = await client.fetch(QUERY_BY_ID, { id: pitchId });
         setData(fetchedData);
         form.reset(fetchedData);
         setPitch(fetchedData.pitch);
       };
-      fetchData();
+      fetchedData();
     }
   }, [pitchId, open]);
 

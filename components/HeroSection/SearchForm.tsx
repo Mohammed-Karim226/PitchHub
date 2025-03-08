@@ -7,7 +7,7 @@ const SearchForm = ({ query }: { query?: string }) => {
     <Form
       action={"/"}
       scroll={false}
-      className="bg-white search-form flex justify-between items-center border-2 rounded-3xl border-slate-300 p-3 w-[700px] max-sm:w-[320px] h-16"
+      className="bg-white search-form flex justify-between items-center border-2 rounded-full border-slate-300 p-3 w-[700px] max-sm:w-[320px] h-16"
     >
       <input
         name="query"
