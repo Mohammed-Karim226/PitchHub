@@ -1,7 +1,8 @@
-import { ArrowLeftCircle, Calendar1Icon, Star, User } from "lucide-react";
+import { Suspense } from "react";
+
+import { ArrowLeftCircle, Calendar1Icon, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { Suspense } from "react";
 import { Skeleton } from "../ui/skeleton";
 import View from "./View";
 import markdownit from "markdown-it";
@@ -31,7 +32,6 @@ const PostPage = ({ post }: { post: IPost }) => {
   const md = markdownit();
 
   const renderPitchContent = (pitch: string) => {
-
     const rawHTML = md.render(pitch);
 
     return rawHTML;
@@ -87,14 +87,14 @@ const PostPage = ({ post }: { post: IPost }) => {
             </div>
             {/* Logo or Icon */}
             <div className="w-[130px] h-[130px] max-sm:mt-2 rounded-full overflow-hidden bg-white border border-slate-50 flex justify-center items-center">
-  <Image
-    src={post?.image}
-    alt="Category"
-    width={130}
-    height={130}
-    className="object-cover shadow-md hover:scale-110 transition-transform"
-  />
-</div>
+              <Image
+                src={post?.image}
+                alt="Category"
+                width={130}
+                height={130}
+                className="object-cover shadow-md hover:scale-110 transition-transform"
+              />
+            </div>
           </div>
 
           {/* Ratings Section */}
@@ -153,7 +153,9 @@ const PostPage = ({ post }: { post: IPost }) => {
         </div>
 
         {/* Pitch Details Section */}
-        <div className="mt-8 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-100 p-8 rounded-2xl shadow-2xl relative overflow-hidden">
+        <div
+          className={`mt-8 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-100 p-8 rounded-2xl shadow-2xl relative overflow-hidden`}
+        >
           {/* Decorative Gradient Circles */}
           <div className="absolute top-0 left-0 w-32 h-32 bg-purple-300 rounded-full blur-3xl opacity-30 -z-10"></div>
           <div className="absolute bottom-0 right-0 w-40 h-40 bg-pink-300 rounded-full blur-3xl opacity-30 -z-10"></div>
@@ -161,20 +163,25 @@ const PostPage = ({ post }: { post: IPost }) => {
           {/* Section Title */}
           <div className="flex items-center gap-2 mb-6">
             <div className="p-3 bg-indigo-600 text-white rounded-full shadow-md">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
+              <button
+                
+                className="flex justify-center items-center"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M4 6h16M4 12h8m-8 6h16"
-                />
-              </svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M4 6h16M4 12h8m-8 6h16"
+                  />
+                </svg>
+              </button>
             </div>
             <h3 className="text-2xl font-bold text-gray-800 tracking-wide">
               Pitch Details

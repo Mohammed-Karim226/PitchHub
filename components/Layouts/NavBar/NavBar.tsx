@@ -1,7 +1,7 @@
 import { auth, signIn, signOut } from "@/auth";
 import Image from "next/image";
 import Link from "next/link";
-import { PlusCircle, LogOut, LogIn, User } from "lucide-react"; // lucide-react icons
+import { PlusCircle, LogOut, LogIn, User, MenuIcon, LayoutDashboard, Home } from "lucide-react"; // lucide-react icons
 
 const NavBar = async () => {
   const session = await auth();
@@ -23,7 +23,21 @@ const NavBar = async () => {
           {session && session?.user ? (
             <>
               <Link
+                href="/"
+                className="flex items-center gap-1 text-gray-500 text-lg hover:text-yellow-600 font-medium transition duration-150"
+              >
+                <Home className="w-5 h-5" />
+                <span className="max-sm:hidden">Home</span>
+              </Link>
+              <Link
                 href="/startup/create"
+                className="flex items-center gap-1 text-gray-500 text-lg hover:text-yellow-600 font-medium transition duration-150"
+              >
+                <LayoutDashboard className="w-5 h-5" />
+                <span className="max-sm:hidden">Dashboard</span>
+              </Link>
+              <Link
+                href="/startup/create/post"
                 className="flex items-center gap-1 text-gray-500 text-lg hover:text-yellow-600 font-medium transition duration-150"
               >
                 <PlusCircle className="w-5 h-5" />
