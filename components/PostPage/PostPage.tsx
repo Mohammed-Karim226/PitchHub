@@ -6,6 +6,8 @@ import Link from "next/link";
 import { Skeleton } from "../ui/skeleton";
 import View from "./View";
 import markdownit from "markdown-it";
+import AddComment from "./CommentDialogs/AddComment";
+import ViewComments from "./CommentDialogs/ViewComments";
 
 interface IAuthor {
   bio: string;
@@ -39,6 +41,7 @@ const PostPage = ({ post }: { post: IPost }) => {
 
   // Example Usage
   const pitchHTML = renderPitchContent(post.pitch);
+
   return (
     <section className="bg-gray-50 h-full relative py-12 px-6 md:px-12 lg:px-20">
       <div className="absolute top-6 left-10 max-sm:left-4 max-sm:pointer-events-auto">
@@ -99,6 +102,7 @@ const PostPage = ({ post }: { post: IPost }) => {
 
           {/* Ratings Section */}
           <div className="mt-6 max-sm:flex-col max-sm:justify-start max-sm:items-start flex items-center gap-4 text-gray-600">
+            {/* adding rating dynamic stars based on the analytics  */}
             <div className="max-sm:hidden">•</div>
             <div className="flex items-center gap-2">
               <User width={20} height={20} />
@@ -149,6 +153,10 @@ const PostPage = ({ post }: { post: IPost }) => {
                 @{post.author.username}
               </p>
             </div>
+          </div>
+          <div className="flex justify-start items-center pt-4 gap-6">
+            <AddComment />
+            <ViewComments />
           </div>
         </div>
 
