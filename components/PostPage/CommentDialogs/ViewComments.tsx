@@ -14,7 +14,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 
-const ViewComments = () => {
+const ViewComments = ({id}: {id: string}) => {
   return (
     <Sheet>
     <SheetTrigger asChild>
@@ -22,12 +22,12 @@ const ViewComments = () => {
     </SheetTrigger>
     <SheetContent>
       <SheetHeader>
-        <SheetTitle>Edit profile</SheetTitle>
-        <SheetDescription>
-          Make changes to your profile here. Click save when you're done.
+        <SheetTitle>Comments</SheetTitle>
+        <SheetDescription className="capitalize text-sm text-slate-500">
+          Here you can view all the comments for this post.
         </SheetDescription>
       </SheetHeader>
-      <div className="grid gap-4 py-4">
+      <div className="flex flex-col justify-start items-start gap-2">
         {/* content here */}
       </div>
       <SheetFooter>

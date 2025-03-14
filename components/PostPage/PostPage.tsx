@@ -155,8 +155,8 @@ const PostPage = ({ post }: { post: IPost }) => {
             </div>
           </div>
           <div className="flex justify-start items-center pt-4 gap-6">
-            <AddComment />
-            <ViewComments />
+            <AddComment id={post?._id} />
+            <ViewComments id={post?._id} />
           </div>
         </div>
 

@@ -122,3 +122,19 @@ export const PLAYLIST_BY_SLUG_QUERY =
     pitch
   }
 }`);
+
+
+export const Comments_QUERY = 
+defineQuery(`
+*[_type == "comment" && post._ref == $postId] | order(_createdAt desc) {
+  _id,
+  _createdAt,
+  name,
+  email,
+  comment,
+  post -> {
+    _id,
+    title
+  }
+}
+`)

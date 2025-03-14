@@ -174,3 +174,24 @@ export const deletePitch = async (pitchId: string) =>{
     });
   }
 }
+
+export const AddComment = async ({postId, type, comment}: {postId: string, type: string, comment: string}) =>{
+  try {
+    const result = await writeClient.create({
+      _type: "comment",
+      postId,
+      type,
+      comment
+    })
+    return parseServerActionResponse({
+      ...result,
+      error: "",
+      status: "SUCCESS",
+    });
+  } catch (error) {
+    return parseServerActionResponse({
+      error: JSON.stringify(error),
+      status: "ERROR",
+    }); 
+  }
+}
