@@ -175,13 +175,20 @@ export const deletePitch = async (pitchId: string) =>{
   }
 }
 
-export const AddComment = async ({postId, type, comment}: {postId: string, type: string, comment: string}) =>{
+export const AddCommentAction = async ({postId: id, type, comment}: {postId: string, type: string, comment: string}) =>{
+  const session = await auth();
   try {
+    if (!session)
+      return parseServerActionResponse({
+        error: "Not signed in",
+        status: "ERROR",
+      });
     const result = await writeClient.create({
       _type: "comment",
-      postId,
+      id,
       type,
-      comment
+      comment,
+      name: session.user?.name,
     })
     return parseServerActionResponse({
       ...result,

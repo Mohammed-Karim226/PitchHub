@@ -124,17 +124,13 @@ export const PLAYLIST_BY_SLUG_QUERY =
 }`);
 
 
-export const Comments_QUERY = 
+export const COMMENTS_BY_ID_QUERY = 
 defineQuery(`
-*[_type == "comment" && post._ref == $postId] | order(_createdAt desc) {
+*[_type == "comment" && id == $id] {
   _id,
   _createdAt,
-  name,
-  email,
+  type,
   comment,
-  post -> {
-    _id,
-    title
-  }
+  name
 }
 `)

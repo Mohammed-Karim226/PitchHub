@@ -17,5 +17,9 @@ export const comment = defineType({
         name: "comment",
         type: "string",
       }),
+    defineField({
+        name: "name",
+        type: "string",
+      }),
   ],
 });

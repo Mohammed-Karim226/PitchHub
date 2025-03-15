@@ -28,6 +28,8 @@ import {
 import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/hooks/use-toast";
+import { AddCommentAction } from "@/lib/actions";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   type: z.string(),
@@ -41,6 +43,8 @@ interface ICommentTypes {
 const AddComment = ({id}: {id: string}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const r = useRouter();
 
   const commentType: ICommentTypes[] = [
     { value: "positive", label: "Positive" },
@@ -60,15 +64,16 @@ const AddComment = ({id}: {id: string}) => {
   const typeSelected = (type: string) =>{
     form.setValue("type", type);
   }
-  function onSubmit(values: z.infer<typeof formSchema>) {
+ async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitted(true);
     try {
-      // action here
+     const result = await AddCommentAction({postId: id, type: values?.type, comment: values?.comment});
 
       setIsSubmitted(false);
       setIsOpen(false);
       form.reset();
       toast({title: "Success", description: "Comment added successfully.", color: "green"});
+      r.refresh();
     } catch (error: unknown) {
       const err = error as { message: string, code: string | number };
       toast({title: "Error", description: err.message, color: "red"});
@@ -84,7 +89,7 @@ const AddComment = ({id}: {id: string}) => {
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle className="flex justify-start items-center gap-1">
-            <MessageCircle width={24} height={24} color="#4440B3" />
+            <MessageCircle width={26} height={26} color="#4440B3" />
             <p className="text-base font-bold text-slate-500">Add Comment</p>
           </DialogTitle>
           <DialogDescription className="text-base text-slate-400 font-normal">
@@ -125,8 +130,9 @@ const AddComment = ({id}: {id: string}) => {
               <Button
                 type="submit"
                 className="bg-indigo-500/30 w-full text-slate-700 rounded-full shadow-sm hover:bg-indigo-500/40"
+                disabled={isSubmitted}
               >
-                Submit
+               { isSubmitted ? "Adding Comment..." : "Add Comment"}
               </Button>
             </form>
           </Form>
