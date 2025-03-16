@@ -30,6 +30,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/hooks/use-toast";
 import { AddCommentAction } from "@/lib/actions";
 import { useRouter } from "next/navigation";
+import { auth } from "@/auth";
 
 const formSchema = z.object({
   type: z.string(),
@@ -68,7 +69,11 @@ const AddComment = ({id}: {id: string}) => {
     setIsSubmitted(true);
     try {
      const result = await AddCommentAction({postId: id, type: values?.type, comment: values?.comment});
-
+      
+      if(result.status !== "SUCCESS"){
+        setIsOpen(false);
+        throw new Error("Failed to comment. Unauthorized user.");
+      }
       setIsSubmitted(false);
       setIsOpen(false);
       form.reset();

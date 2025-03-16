@@ -8,6 +8,7 @@ import View from "./View";
 import markdownit from "markdown-it";
 import AddComment from "./CommentDialogs/AddComment";
 import ViewComments from "./CommentDialogs/ViewComments";
+import Stats from "./CommentDialogs/Stats";
 
 interface IAuthor {
   bio: string;
@@ -157,6 +158,7 @@ const PostPage = ({ post }: { post: IPost }) => {
           <div className="flex justify-start items-center pt-4 gap-6">
             <AddComment id={post?._id} />
             <ViewComments id={post?._id} />
+            <Stats id={post?._id} />
           </div>
         </div>
 
