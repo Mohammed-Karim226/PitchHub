@@ -134,3 +134,10 @@ defineQuery(`
   name
 }
 `)
+
+// query to get the top view post by its id 
+export const TOP_VIEW_POST_BY_ID_QUERY = defineQuery(`
+*[_type == "startup"] | order(views desc)[0] {
+  views,
+}
+`);

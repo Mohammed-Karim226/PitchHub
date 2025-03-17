@@ -158,7 +158,7 @@ const PostPage = ({ post }: { post: IPost }) => {
           <div className="flex justify-start items-center pt-4 gap-6">
             <AddComment id={post?._id} />
             <ViewComments id={post?._id} />
-            <Stats id={post?._id} />
+            <Stats id={post?._id} createdAt={post?._createdAt} postView={post?.views} />
           </div>
         </div>
 
