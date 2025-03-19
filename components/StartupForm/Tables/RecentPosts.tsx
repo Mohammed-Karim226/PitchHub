@@ -44,8 +44,8 @@ export function RecentPosts({ posts = [] }: { posts: IPost[] }) {
 
   return (
     <Card className="w-full h-full shadow-lg rounded-lg overflow-hidden border border-gray-200">
-      <CardHeader className="bg-indigo-50 p-6">
-        <CardTitle className="text-2xl font-bold text-indigo-600">
+      <CardHeader className="bg-indigo-50 p-6 max-sm:p-4">
+        <CardTitle className="text-2xl max-sm:text-lg font-bold text-indigo-600">
           Recent Posts
         </CardTitle>
       </CardHeader>

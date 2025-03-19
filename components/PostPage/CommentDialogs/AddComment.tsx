@@ -68,6 +68,11 @@ const AddComment = ({id}: {id: string}) => {
  async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitted(true);
     try {
+      if(!values?.type){
+        setIsOpen(false);
+        setIsSubmitted(false);
+        throw new Error("Please select a comment type.");
+      }
      const result = await AddCommentAction({postId: id, type: values?.type, comment: values?.comment});
       
       if(result.status !== "SUCCESS"){
@@ -81,7 +86,7 @@ const AddComment = ({id}: {id: string}) => {
       r.refresh();
     } catch (error: unknown) {
       const err = error as { message: string, code: string | number };
-      toast({title: "Error", description: err.message, color: "red"});
+      toast({title: "Error", description: err.message, color: "danger"});
     }
   }
   return (

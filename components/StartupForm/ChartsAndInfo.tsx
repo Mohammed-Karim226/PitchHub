@@ -10,7 +10,7 @@ import { RecentPosts } from "./Tables/RecentPosts";
 const ChartsAndInfo = ({ posts }: { posts: IPost[] }) => {
   return (
     <section className=" space-y-6 p-4 w-full">
-      <h1 className="text-3xl font-bold tracking-tight text-indigo-600">
+      <h1 className="text-3xl font-bold max-sm:text-xl tracking-tight text-indigo-600">
         Dashboard Overview
       </h1>
       <MetricsGrid posts={posts} />

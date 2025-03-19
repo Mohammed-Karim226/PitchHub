@@ -121,7 +121,7 @@ const UpdateDialog = memo(({ pitchId }: { pitchId: string }) => {
           Update Post
         </Button>
       </SheetTrigger>
-      <SheetContent>
+      <SheetContent className="max-sm:w-full">
         <SheetHeader>
           <SheetTitle>Update Post</SheetTitle>
           <SheetDescription>

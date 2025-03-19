@@ -71,7 +71,7 @@ const DeleteDialog = memo(({ pitchId }: DeleteDialogProps) => {
           Delete Post
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[400px]">
+      <DialogContent className="sm:max-w-[400px] max-sm:max-w-[380px]">
         <DialogHeader>
           <DialogTitle>Confirm Deletion</DialogTitle>
           <DialogDescription>
@@ -79,7 +79,7 @@ const DeleteDialog = memo(({ pitchId }: DeleteDialogProps) => {
             undone.
           </DialogDescription>
         </DialogHeader>
-        <DialogFooter>
+        <DialogFooter className="amx-sm: gap-2">
           <Button
             variant="outline"
             disabled={loading}

@@ -16,7 +16,7 @@ const SearchFormReset = () => {
       className="ml-2 p-2 text-slate-500 hover:text-slate-700 "
     >
       <Link href={"/"}>
-        <X size={24} />
+        <X size={24} className="max-sm:size-[18px]" />
       </Link>
     </button>
   );
