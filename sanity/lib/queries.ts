@@ -123,9 +123,7 @@ export const PLAYLIST_BY_SLUG_QUERY =
   }
 }`);
 
-
-export const COMMENTS_BY_ID_QUERY = 
-defineQuery(`
+export const COMMENTS_BY_ID_QUERY = defineQuery(`
 *[_type == "comment" && id == $id] {
   _id,
   _createdAt,
@@ -133,8 +131,7 @@ defineQuery(`
   comment,
   name
 }
-`)
-
+`);
 
 export const TOP_VIEW_POST_BY_ID_QUERY = defineQuery(`
 *[_type == "startup"] | order(views desc)[0] {

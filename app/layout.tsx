@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import NProgressProvider from "@/components/Providers/NProgressProvider";
 import Theme from "@/components/Providers/Theme";
-import { Toaster } from "@/components/ui/toaster"
+import { Toaster } from "@/components/ui/toaster";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -26,16 +26,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Theme>
-          <NProgressProvider>
-           {children}
-          </NProgressProvider>
+          <NProgressProvider>{children}</NProgressProvider>
           <Toaster />
         </Theme>
       </body>

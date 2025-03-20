@@ -106,12 +106,12 @@ const UpdateDialog = memo(({ pitchId }: { pitchId: string }) => {
   };
   useEffect(() => {
     if (open) {
-      document.body.style.overflow = "hidden"; // Lock scroll when open
+      document.body.style.overflow = "hidden"; 
     } else {
-      document.body.style.overflow = ""; // Unlock scroll when closed
+      document.body.style.overflow = ""; 
     }
     return () => {
-      document.body.style.overflow = ""; // Cleanup on unmount
+      document.body.style.overflow = ""; 
     };
   }, [open]);
   return (

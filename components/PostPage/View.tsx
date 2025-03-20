@@ -18,7 +18,7 @@ const MatchedPosts = async ({ id }: { id: string }) => {
       .fetch(QUERY_STARTUP_VIEWS, { id });
 
     // Increment based on the latest value
-    const safeLatestViews  = latestViews ?? 0;
+    const safeLatestViews = latestViews ?? 0;
     await writeClient
       .patch(id)
       .set({ views: safeLatestViews + 1 })

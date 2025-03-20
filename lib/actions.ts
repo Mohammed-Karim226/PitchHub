@@ -36,22 +36,20 @@ export const createPitch = async (form: FormData, pitch: string) => {
     let AI_Description = "";
     let AI_Content = "";
 
-
-   if(!description){
-    const descriptionResult = await model.generateContentStream(promptOne);
-    for await (const chunk of descriptionResult.stream) {
-      AI_Description += chunk.text();
+    if (!description) {
+      const descriptionResult = await model.generateContentStream(promptOne);
+      for await (const chunk of descriptionResult.stream) {
+        AI_Description += chunk.text();
+      }
     }
-   }
 
+    if (!pitch) {
+      const contentResult = await model.generateContentStream(promptTwo);
+      for await (const chunk of contentResult.stream) {
+        AI_Content += chunk.text();
+      }
+    }
 
- if(!pitch){
-  const contentResult = await model.generateContentStream(promptTwo);
-  for await (const chunk of contentResult.stream) {
-    AI_Content += chunk.text();
-  }
- }
-    
     const startup = {
       title,
       description: description || AI_Description,
@@ -94,70 +92,70 @@ export const updatePitch = async (pitchId: string, form: FormData) => {
       status: "ERROR",
     });
 
-    if(!form){
+  if (!form) {
+    return parseServerActionResponse({
+      error: "No form data for this pitch.",
+      status: "ERROR",
+    });
+  }
+
+  try {
+    const pitch = await writeClient.fetch(
+      `*[_type == "startup" && _id == $pitchId][0] { _id, author }`,
+      { pitchId }
+    );
+
+    if (!pitch) {
       return parseServerActionResponse({
-        error: "No form data for this pitch.",
+        error: "Pitch not found.",
         status: "ERROR",
       });
     }
 
-    try {
-      const pitch = await writeClient.fetch(
-        `*[_type == "startup" && _id == $pitchId][0] { _id, author }`,
-        { pitchId }
-      );
-
-      if(!pitch){
-        return parseServerActionResponse({
-          error: "Pitch not found.",
-          status: "ERROR",
-        });
-      }
-
-      if (pitch.author._ref !== session.id) {
-        return parseServerActionResponse({
-          error: "Unauthorized",
-          status: "ERROR",
-        });
-      }
-
-      const updatedPitch = await writeClient.patch(pitchId).set(Object.fromEntries(form)).commit();
-
+    if (pitch.author._ref !== session.id) {
       return parseServerActionResponse({
-        ...updatedPitch,
-        error: "",
-        status: "SUCCESS",
-      })
-    } catch (error) {
-      return parseServerActionResponse({
-        error: JSON.stringify(error),
+        error: "Unauthorized",
         status: "ERROR",
       });
     }
-   
-   
-}
 
-export const deletePitch = async (pitchId: string) =>{
+    const updatedPitch = await writeClient
+      .patch(pitchId)
+      .set(Object.fromEntries(form))
+      .commit();
+
+    return parseServerActionResponse({
+      ...updatedPitch,
+      error: "",
+      status: "SUCCESS",
+    });
+  } catch (error) {
+    return parseServerActionResponse({
+      error: JSON.stringify(error),
+      status: "ERROR",
+    });
+  }
+};
+
+export const deletePitch = async (pitchId: string) => {
   const session = await auth();
 
   try {
-
     if (!session)
       return parseServerActionResponse({
         error: "Not signed in",
         status: "ERROR",
       });
-      const pitch = await writeClient.fetch(
-        `*[_type == "startup" && _id == $pitchId][0] { _id, author }`,
-        { pitchId }
-      );
-      if (pitch.author._ref !== session.id) {
-        return parseServerActionResponse({
-          error: "Unauthorized",
-          status: "ERROR",
-        });
-      }
+    const pitch = await writeClient.fetch(
+      `*[_type == "startup" && _id == $pitchId][0] { _id, author }`,
+      { pitchId }
+    );
+    if (pitch.author._ref !== session.id) {
+      return parseServerActionResponse({
+        error: "Unauthorized",
+        status: "ERROR",
+      });
+    }
 
     const result = await writeClient.delete(pitchId);
 
@@ -167,15 +165,22 @@ export const deletePitch = async (pitchId: string) =>{
       status: "SUCCESS",
     });
   } catch (error) {
-
     return parseServerActionResponse({
       error: JSON.stringify(error),
       status: "ERROR",
     });
   }
-}
+};
 
-export const AddCommentAction = async ({postId: id, type, comment}: {postId: string, type: string, comment: string}) =>{
+export const AddCommentAction = async ({
+  postId: id,
+  type,
+  comment,
+}: {
+  postId: string;
+  type: string;
+  comment: string;
+}) => {
   const session = await auth();
   try {
     if (!session)
@@ -189,7 +194,7 @@ export const AddCommentAction = async ({postId: id, type, comment}: {postId: str
       type,
       comment,
       name: session.user?.name,
-    })
+    });
     return parseServerActionResponse({
       ...result,
       error: "",
@@ -199,6 +204,6 @@ export const AddCommentAction = async ({postId: id, type, comment}: {postId: str
     return parseServerActionResponse({
       error: JSON.stringify(error),
       status: "ERROR",
-    }); 
+    });
   }
-}
+};

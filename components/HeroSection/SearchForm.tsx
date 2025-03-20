@@ -22,7 +22,7 @@ const SearchForm = ({ query }: { query?: string }) => {
           type="submit"
           className="ml-2 p-2 text-slate-500 hover:text-slate-700"
         >
-          <Search size={24} className="max-sm:size-[18px]"/>
+          <Search size={24} className="max-sm:size-[18px]" />
         </button>
       </div>
     </Form>

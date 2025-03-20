@@ -30,7 +30,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/hooks/use-toast";
 import { AddCommentAction } from "@/lib/actions";
 import { useRouter } from "next/navigation";
-import { auth } from "@/auth";
 
 const formSchema = z.object({
   type: z.string(),
@@ -41,15 +40,15 @@ interface ICommentTypes {
   value: string;
   label: string;
 }
-const AddComment = ({id}: {id: string}) => {
+const AddComment = ({ id }: { id: string }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const r = useRouter();
+  const router = useRouter();
 
   const commentType: ICommentTypes[] = [
     { value: "positive", label: "Positive" },
-    { value: "negative", label: "Negative"},
+    { value: "negative", label: "Negative" },
   ];
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -62,31 +61,39 @@ const AddComment = ({id}: {id: string}) => {
 
   const ButtonType = form.watch("type");
 
-  const typeSelected = (type: string) =>{
+  const typeSelected = (type: string) => {
     form.setValue("type", type);
-  }
- async function onSubmit(values: z.infer<typeof formSchema>) {
+  };
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitted(true);
     try {
-      if(!values?.type){
+      if (!values?.type) {
         setIsOpen(false);
         setIsSubmitted(false);
         throw new Error("Please select a comment type.");
       }
-     const result = await AddCommentAction({postId: id, type: values?.type, comment: values?.comment});
-      
-      if(result.status !== "SUCCESS"){
+      const result = await AddCommentAction({
+        postId: id,
+        type: values?.type,
+        comment: values?.comment,
+      });
+
+      if (result.status !== "SUCCESS") {
         setIsOpen(false);
         throw new Error("Failed to comment. Unauthorized user.");
       }
       setIsSubmitted(false);
       setIsOpen(false);
       form.reset();
-      toast({title: "Success", description: "Comment added successfully.", color: "green"});
-      r.refresh();
+      toast({
+        title: "Success",
+        description: "Comment added successfully.",
+        color: "green",
+      });
+      router.refresh();
     } catch (error: unknown) {
-      const err = error as { message: string, code: string | number };
-      toast({title: "Error", description: err.message, color: "danger"});
+      const err = error as { message: string; code: string | number };
+      toast({ title: "Error", description: err.message, color: "danger" });
     }
   }
   return (
@@ -112,13 +119,13 @@ const AddComment = ({id}: {id: string}) => {
               <div className="flex justify-between items-center gap-2 max-sm:flex-col">
                 {commentType.map((type) => (
                   <button
-                  type="button"
-                  key={type.value}
-                  onClick={() => typeSelected(type.value)}
-                  className={`px-6 w-full py-2 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-semibold text-gray-700 hover:bg-indigo-50 hover:border-indigo-400 hover:text-indigo-600 transition-all duration-200 ease-in-out ${ButtonType === type.value && 'border-indigo-500 bg-indigo-500/40 text-indigo-500'}`}
-                >
-                  {type.label}
-                </button>
+                    type="button"
+                    key={type.value}
+                    onClick={() => typeSelected(type.value)}
+                    className={`px-6 w-full py-2 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-semibold text-gray-700 hover:bg-indigo-50 hover:border-indigo-400 hover:text-indigo-600 transition-all duration-200 ease-in-out ${ButtonType === type.value && "border-indigo-500 bg-indigo-500/40 text-indigo-500"}`}
+                  >
+                    {type.label}
+                  </button>
                 ))}
               </div>
               <FormField
@@ -128,11 +135,13 @@ const AddComment = ({id}: {id: string}) => {
                   <FormItem>
                     <FormLabel>Comment</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Add Comment..." {...field} className="whitespace-pre-wrap"/>
+                      <Textarea
+                        placeholder="Add Comment..."
+                        {...field}
+                        className="whitespace-pre-wrap"
+                      />
                     </FormControl>
-                    <FormDescription>
-                      This is your comment.
-                    </FormDescription>
+                    <FormDescription>This is your comment.</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -142,7 +151,7 @@ const AddComment = ({id}: {id: string}) => {
                 className="bg-indigo-500/30 w-full text-slate-700 rounded-full shadow-sm hover:bg-indigo-500/40"
                 disabled={isSubmitted}
               >
-               { isSubmitted ? "Adding Comment..." : "Add Comment"}
+                {isSubmitted ? "Adding Comment..." : "Add Comment"}
               </Button>
             </form>
           </Form>

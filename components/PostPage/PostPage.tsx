@@ -31,7 +31,22 @@ export interface IPost {
   length?: number;
 }
 
-const PostPage = ({ post }: { post: IPost }) => {
+export interface IComments {
+  _id: string;
+  _createdAt: string;
+  type: string;
+  comment: string;
+  name: string;
+}
+const PostPage = ({
+  post,
+  comments,
+  trendy_post,
+}: {
+  post: IPost;
+  comments: IComments[];
+  trendy_post: number;
+}) => {
   const md = markdownit();
 
   const renderPitchContent = (pitch: string) => {
@@ -40,7 +55,6 @@ const PostPage = ({ post }: { post: IPost }) => {
     return rawHTML;
   };
 
-  // Example Usage
   const pitchHTML = renderPitchContent(post.pitch);
 
   return (
@@ -155,10 +169,15 @@ const PostPage = ({ post }: { post: IPost }) => {
               </p>
             </div>
           </div>
-          <div className="flex justify-start items-center pt-4 gap-6">
+          <div className="flex justify-start items-center pt-4 gap-6 max-sm:flex-col max-sm:items-start">
             <AddComment id={post?._id} />
-            <ViewComments id={post?._id} />
-            <Stats id={post?._id} createdAt={post?._createdAt} postView={post?.views} />
+            <ViewComments comments={comments} />
+            <Stats
+              comments={comments}
+              trendy_post={trendy_post}
+              post_view={post?.views}
+              createdAt={post?._createdAt}
+            />
           </div>
         </div>
 
@@ -173,10 +192,7 @@ const PostPage = ({ post }: { post: IPost }) => {
           {/* Section Title */}
           <div className="flex items-center gap-2 mb-6">
             <div className="p-3 bg-indigo-600 text-white rounded-full shadow-md">
-              <button
-                
-                className="flex justify-center items-center"
-              >
+              <button className="flex justify-center items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-4 w-4"

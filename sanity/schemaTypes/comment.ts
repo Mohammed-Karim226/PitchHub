@@ -6,20 +6,20 @@ export const comment = defineType({
   type: "document",
   fields: [
     defineField({
-        name: "id",
-        type: "string",
-      }),
+      name: "id",
+      type: "string",
+    }),
     defineField({
       name: "type",
       type: "string",
     }),
     defineField({
-        name: "comment",
-        type: "string",
-      }),
+      name: "comment",
+      type: "string",
+    }),
     defineField({
-        name: "name",
-        type: "string",
-      }),
+      name: "name",
+      type: "string",
+    }),
   ],
 });

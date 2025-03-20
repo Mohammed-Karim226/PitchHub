@@ -1,10 +1,9 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardFooter } from "../ui/card";
-import { Button } from "../ui/button";
+import { Card, CardContent, CardHeader } from "../ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
 import { motion } from "framer-motion";
-import { Mail, UserCircle, Info, Send, Pencil, Trash, ShieldCheck, Calendar, Globe, MessageCircle, Lock } from "lucide-react";
+import { Mail, UserCircle, Info, ShieldCheck } from "lucide-react";
 
 interface IUserDetails {
   name?: string;
@@ -34,7 +33,11 @@ const UserDetails = ({ user }: { user: IUserDetails }) => {
     >
       <Card className="max-w-lg w-full bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden">
         {/* Profile Header */}
-        <motion.div initial={{ scale: 0.9 }} animate={{ scale: 1 }} transition={{ duration: 0.6, delay: 0.2 }}>
+        <motion.div
+          initial={{ scale: 0.9 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
           <CardHeader className="flex flex-col items-center gap-4 p-6 border-b bg-gradient-to-b from-blue-100 via-slate-50 to-white">
             <Avatar className="w-28 h-28 shadow-md ring-4 ring-blue-200">
               <AvatarImage src={image} alt={`${name}'s profile`} />
@@ -52,11 +55,17 @@ const UserDetails = ({ user }: { user: IUserDetails }) => {
 
         {/* Profile Details */}
         <CardContent className="p-6">
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.3 }}>
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.3 }}
+          >
             {/* Bio */}
             <div className="mb-4 flex items-center gap-2">
               <Info className="w-5 h-5 text-gray-600" />
-              <p className="text-gray-600">{bio || "This user has not provided a bio yet."}</p>
+              <p className="text-gray-600">
+                {bio || "This user has not provided a bio yet."}
+              </p>
             </div>
 
             {/* Email */}
@@ -64,7 +73,9 @@ const UserDetails = ({ user }: { user: IUserDetails }) => {
               <Mail className="w-6 h-6 text-blue-500" />
               <div>
                 <p className="text-sm font-medium text-gray-800">Email:</p>
-                <p className="text-sm text-gray-600">{email || "Not available"}</p>
+                <p className="text-sm text-gray-600">
+                  {email || "Not available"}
+                </p>
               </div>
             </div>
 
@@ -80,20 +91,34 @@ const UserDetails = ({ user }: { user: IUserDetails }) => {
             {/* Social Links */}
             {socialLinks && (
               <div className="mt-4">
-                <p className="text-sm font-medium text-gray-800">Social Links:</p>
+                <p className="text-sm font-medium text-gray-800">
+                  Social Links:
+                </p>
                 <div className="flex gap-3 mt-2">
                   {socialLinks.twitter && (
-                    <a href={socialLinks.twitter} target="_blank" className="text-blue-500 hover:underline">
+                    <a
+                      href={socialLinks.twitter}
+                      target="_blank"
+                      className="text-blue-500 hover:underline"
+                    >
                       Twitter
                     </a>
                   )}
                   {socialLinks.linkedin && (
-                    <a href={socialLinks.linkedin} target="_blank" className="text-blue-500 hover:underline">
+                    <a
+                      href={socialLinks.linkedin}
+                      target="_blank"
+                      className="text-blue-500 hover:underline"
+                    >
                       LinkedIn
                     </a>
                   )}
                   {socialLinks.github && (
-                    <a href={socialLinks.github} target="_blank" className="text-blue-500 hover:underline">
+                    <a
+                      href={socialLinks.github}
+                      target="_blank"
+                      className="text-blue-500 hover:underline"
+                    >
                       GitHub
                     </a>
                   )}

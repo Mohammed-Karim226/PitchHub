@@ -1,5 +1,5 @@
 "use client";
-import dynamic from "next/dynamic";
+
 import SearchForm from "./SearchForm";
 
 const HeroSection = ({ query }: { query?: string }) => {
@@ -23,7 +23,6 @@ const HeroSection = ({ query }: { query?: string }) => {
         <p className="text-gray-900 text-xl text-center max-sm:text-lg max-sm:font-normal font-medium">
           Submit Ideas, Vote on Pitches, and Get Noticed in Virtual Competitions
         </p>
-        {/* search part */}
         <SearchForm query={query} />
       </div>
     </section>

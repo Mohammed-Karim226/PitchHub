@@ -14,7 +14,8 @@ export function calculateMetrics(posts: IPost[]) {
     return sum + (isNaN(views) ? 1 : views); // Add 0 if views is NaN
   }, 0);
   const totalPosts = posts.length;
-  const avgViewsPerPost = totalPosts > 0 ? Math.round(totalViews / totalPosts) : 0;
+  const avgViewsPerPost =
+    totalPosts > 0 ? Math.round(totalViews / totalPosts) : 0;
   const uniqueAuthors = new Set(posts.map((post) => post?.author?._id)).size;
 
   return {

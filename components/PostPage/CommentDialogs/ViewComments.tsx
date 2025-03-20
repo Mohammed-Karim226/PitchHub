@@ -22,23 +22,9 @@ import {
   Smile,
 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { IComments } from "../PostPage";
 
-const ViewComments = ({ id }: { id: string }) => {
-  const [comments, setComments] = useState<any[]>([]);
-
-  useEffect(() => {
-    const fetchComments = async () => {
-      try {
-        const data = await client.fetch(COMMENTS_BY_ID_QUERY, { id });
-        setComments(data || []);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchComments();
-  }, [id]);
-
+const ViewComments = ({ comments }: { comments: IComments[] }) => {
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -46,7 +32,7 @@ const ViewComments = ({ id }: { id: string }) => {
           View Comments
         </Button>
       </SheetTrigger>
-      <SheetContent>
+      <SheetContent className="max-sm:w-full">
         <SheetHeader>
           <SheetTitle className="flex justify-start items-center gap-1 text-slate-500">
             <LayoutList width={22} height={22} />
@@ -56,8 +42,8 @@ const ViewComments = ({ id }: { id: string }) => {
             Here you can view all the comments for this post.
           </SheetDescription>
         </SheetHeader>
-        <div className="flex flex-col justify-start items-start gap-2 py-4 overflow-y-auto">
-          {comments.map((comment: any) => (
+        <div className="flex flex-col justify-start items-start gap-2 py-4 overflow-y-scroll h-[900px] max-sm:h-[720px]">
+          {comments.map((comment: IComments) => (
             <div
               key={comment._id}
               className={cn(
@@ -87,7 +73,7 @@ const ViewComments = ({ id }: { id: string }) => {
             </div>
           ))}
         </div>
-        <SheetFooter>
+        <SheetFooter className="mt-3">
           <SheetClose asChild>
             <Button className="bg-orange-500/30 text-slate-500 rounded-full shadow-sm hover:bg-orange-500/40">
               Close

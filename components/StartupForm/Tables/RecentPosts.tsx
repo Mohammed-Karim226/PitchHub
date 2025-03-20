@@ -1,7 +1,13 @@
 "use client";
 import { useState } from "react";
 
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   Table,
   TableBody,
@@ -17,7 +23,6 @@ import DeleteDialog from "./DeleteDialog";
 import UpdateDialog from "./UpdateDialog";
 import { SquareArrowLeft, SquareArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
-
 
 export function RecentPosts({ posts = [] }: { posts: IPost[] }) {
   const isEmpty = posts.length === 0;
@@ -53,9 +58,15 @@ export function RecentPosts({ posts = [] }: { posts: IPost[] }) {
         <Table className="min-w-full">
           <TableHeader className="bg-gray-50">
             <TableRow>
-              <TableHead className="font-semibold text-gray-700">Title</TableHead>
-              <TableHead className="font-semibold text-gray-700">Author</TableHead>
-              <TableHead className="font-semibold text-gray-700">Category</TableHead>
+              <TableHead className="font-semibold text-gray-700">
+                Title
+              </TableHead>
+              <TableHead className="font-semibold text-gray-700">
+                Author
+              </TableHead>
+              <TableHead className="font-semibold text-gray-700">
+                Category
+              </TableHead>
               <TableHead className="font-semibold text-gray-700 text-center">
                 Views
               </TableHead>
@@ -80,12 +91,12 @@ export function RecentPosts({ posts = [] }: { posts: IPost[] }) {
             ) : (
               currentPosts.map((post) => (
                 <motion.tr
-                key={post._id}
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, y: 0.95 }}
-                transition={{ duration: 0.3 }}
-                className="hover:bg-gray-50 transition-colors border-b border-gray-200"
+                  key={post._id}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, y: 0.95 }}
+                  transition={{ duration: 0.3 }}
+                  className="hover:bg-gray-50 transition-colors border-b border-gray-200"
                 >
                   <TableCell className="font-medium text-gray-900">
                     {post.title}
@@ -112,7 +123,7 @@ export function RecentPosts({ posts = [] }: { posts: IPost[] }) {
         </Table>
       </CardContent>
       <CardFooter className="flex justify-between items-center">
-      <button
+        <button
           onClick={handlePrev}
           disabled={currentPage === 1}
           className="text-indigo-600 disabled:cursor-not-allowed font-semibold disabled:opacity-50"
@@ -120,9 +131,20 @@ export function RecentPosts({ posts = [] }: { posts: IPost[] }) {
           <SquareArrowLeft size={24} />
         </button>
         <span className="text-base flex text-indigo-600 justify-center items-center">
-          Page <p className="size-5 flex justify-center items-center
-          bg-slate-100 px-1 py-0 text-[14px] mx-2 border border-slate-300 rounded-sm">{currentPage}</p> of <p className="size-5 flex justify-center items-center
-          bg-slate-100 px-1 py-0 text-[14px] mx-2 border border-slate-300 rounded-sm">{totalPages}</p>
+          Page{" "}
+          <p
+            className="size-5 flex justify-center items-center
+          bg-slate-100 px-1 py-0 text-[14px] mx-2 border border-slate-300 rounded-sm"
+          >
+            {currentPage}
+          </p>{" "}
+          of{" "}
+          <p
+            className="size-5 flex justify-center items-center
+          bg-slate-100 px-1 py-0 text-[14px] mx-2 border border-slate-300 rounded-sm"
+          >
+            {totalPages}
+          </p>
         </span>
         <button
           onClick={handleNext}

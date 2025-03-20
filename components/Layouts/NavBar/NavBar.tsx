@@ -1,7 +1,15 @@
 import { auth, signIn, signOut } from "@/auth";
 import Image from "next/image";
 import Link from "next/link";
-import { PlusCircle, LogOut, LogIn, User, MenuIcon, LayoutDashboard, Home } from "lucide-react"; // lucide-react icons
+import {
+  PlusCircle,
+  LogOut,
+  LogIn,
+  User,
+  MenuIcon,
+  LayoutDashboard,
+  Home,
+} from "lucide-react"; // lucide-react icons
 
 const NavBar = async () => {
   const session = await auth();

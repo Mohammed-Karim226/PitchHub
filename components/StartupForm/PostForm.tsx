@@ -32,8 +32,7 @@ const formSchema = z.object({
     .min(2, { message: "Title must be at least 2 characters." })
     .max(100, { message: "Title must not exceed 100 characters." })
     .trim(),
-  description: z
-    .string().optional(),
+  description: z.string().optional(),
   category: z
     .string()
     .regex(/^[A-Za-z\s]+$/, { message: "Category must only contain letters." })
@@ -76,12 +75,12 @@ const PostForm = () => {
     try {
       const formData = new FormData();
       formData.append("title", values.title);
-      if(values.description) {
+      if (values.description) {
         formData.append("description", values.description);
       }
       formData.append("category", values.category);
       formData.append("image", values.image);
-      if(values.pitch) {
+      if (values.pitch) {
         formData.append("pitch", values.pitch);
       }
 
@@ -105,110 +104,114 @@ const PostForm = () => {
   };
 
   return (
-<section className="flex justify-between items-center w-full">
-
-            
-              
-          <div className="flex w-1/2 z-10 max-sm:w-full max-w-4xl px-12 max-sm:px-7 py-8 bg-white justify-center items-center flex-col  rounded-t-2xl">
-            <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-6 w-full"
-              >
-                {[
-                  {
-                    name: "title" as const,
-                    placeholder: "Title",
-                    icon: <Type />,
-                  },
-                  {
-                    name: "category" as const,
-                    placeholder: "Category",
-                    icon: <Lightbulb />,
-                  },
-                  {
-                    name: "image" as const,
-                    placeholder: "Image",
-                    icon: <Image width={24} height={24} />,
-                  },
-                ].map((field) => (
-                  <FormField
-                    key={field.name}
-                    control={form.control}
-                    name={field.name}
-                    render={({ field: fieldProps }) => (
-                      <FormItem>
-                        <FormLabel className="text-base font-medium text-slate-500">{field.placeholder}</FormLabel>
-                        <FormControl>
-                          <div className="relative">
-                            {field.icon && (
-                              <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
-                                {field.icon}
-                              </span>
-                            )}
-                            <Input
-                              placeholder={field.placeholder}
-                              {...fieldProps}
-                              className="w-full placeholder:text-slate-400 h-[55px] rounded-full pl-12 focus:ring-2 focus:ring-purple-500"
-                            />
-                          </div>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                ))}
-
-                <FormField
-                  control={form.control}
-                  name="description"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-base font-medium text-slate-500">Description</FormLabel>
-                      <FormControl>
-                        <Textarea
-                          placeholder="Write a short description of your startup (or leave blank to auto-generate a compelling one!)"
-                          {...field}
-                          className="w-full placeholder:text-slate-400 h-[120px] rounded-2xl focus:ring-2 focus:ring-purple-500"
+    <section className="flex justify-between items-center w-full">
+      <div className="flex w-1/2 z-10 max-sm:w-full max-w-4xl px-12 max-sm:px-7 py-8 bg-white justify-center items-center flex-col  rounded-t-2xl">
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-6 w-full"
+          >
+            {[
+              {
+                name: "title" as const,
+                placeholder: "Title",
+                icon: <Type />,
+              },
+              {
+                name: "category" as const,
+                placeholder: "Category",
+                icon: <Lightbulb />,
+              },
+              {
+                name: "image" as const,
+                placeholder: "Image",
+                icon: <Image width={24} height={24} />,
+              },
+            ].map((field) => (
+              <FormField
+                key={field.name}
+                control={form.control}
+                name={field.name}
+                render={({ field: fieldProps }) => (
+                  <FormItem>
+                    <FormLabel className="text-base font-medium text-slate-500">
+                      {field.placeholder}
+                    </FormLabel>
+                    <FormControl>
+                      <div className="relative">
+                        {field.icon && (
+                          <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
+                            {field.icon}
+                          </span>
+                        )}
+                        <Input
+                          placeholder={field.placeholder}
+                          {...fieldProps}
+                          className="w-full placeholder:text-slate-400 h-[55px] rounded-full pl-12 focus:ring-2 focus:ring-purple-500"
                         />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            ))}
 
-                <div className="container gap-2 w-full flex flex-col justify-start items-start" data-color-mode="light">
-                  <p className="text-base font-medium text-slate-500">Details</p>
-                    <MDEditor
-                      value={pitch}
-                      onChange={(value) => {
-                        setPitch(value || "");
-                        form.setValue("pitch", value || "");
-                      }}
-                      preview="edit"
-                      height={300}
-                      style={{ borderRadius: 20, overflow: "hidden", width: "100%" }}
-                      textareaProps={{
-                        placeholder: "Write your startup pitch here (or leave blank to auto-generate a detailed, professional pitch!)",
-                      }}
-                      previewOptions={{ disallowedElements: ["style"] }}
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-base font-medium text-slate-500">
+                    Description
+                  </FormLabel>
+                  <FormControl>
+                    <Textarea
+                      placeholder="Write a short description of your startup (or leave blank to auto-generate a compelling one!)"
+                      {...field}
+                      className="w-full placeholder:text-slate-400 h-[120px] rounded-2xl focus:ring-2 focus:ring-purple-500"
                     />
-                
-                </div>
-                <Button
-                  type="submit"
-                  disabled={isPending}
-                  className="w-full h-[55px] rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white uppercase shadow-md"
-                >
-                  {isPending ? "Loading ...." : " Submit Your Pitch"}
-                </Button>
-              </form>
-            </Form>
-          </div>
-          <div className="w-1/2 max-sm:hidden flex justify-center h-screen items-center bg-slate-100/60">
-         <CardStackDemo />
-          </div>
-       </section> 
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <div
+              className="container gap-2 w-full flex flex-col justify-start items-start"
+              data-color-mode="light"
+            >
+              <p className="text-base font-medium text-slate-500">Details</p>
+              <MDEditor
+                value={pitch}
+                onChange={(value) => {
+                  setPitch(value || "");
+                  form.setValue("pitch", value || "");
+                }}
+                preview="edit"
+                height={300}
+                style={{ borderRadius: 20, overflow: "hidden", width: "100%" }}
+                textareaProps={{
+                  placeholder:
+                    "Write your startup pitch here (or leave blank to auto-generate a detailed, professional pitch!)",
+                }}
+                previewOptions={{ disallowedElements: ["style"] }}
+              />
+            </div>
+            <Button
+              type="submit"
+              disabled={isPending}
+              className="w-full h-[55px] rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white uppercase shadow-md"
+            >
+              {isPending ? "Loading ...." : " Submit Your Pitch"}
+            </Button>
+          </form>
+        </Form>
+      </div>
+      <div className="w-1/2 max-sm:hidden flex justify-center h-screen items-center bg-slate-100/60">
+        <CardStackDemo />
+      </div>
+    </section>
   );
 };
 

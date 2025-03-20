@@ -30,53 +30,52 @@ export const Highlight = ({
 };
 
 const CARDS = [
-    {
-      id: 0,
-      name: "Step 1",
-      designation: "Title",
-      content: (
-        <p className = "bg-green-500/30 px-2 py-3 rounded-md">
-          Start by providing the <Highlight>essential title</Highlight> about
-          your startup, including the name, category, or key information that
-          makes it unique.
-        </p>
-      ),
-    },
-    {
-      id: 1,
-      name: "Step 2",
-      designation: "Category",
-      content: (
-        <p className = "bg-yellow-500/30 px-2 py-3 rounded-md">
-          Give a <Highlight>Category</Highlight> of your startup.
-          Explain the problem it solves category, how it works, and why it's a game-changer
-          in the industry.
-        </p>
-      ),
-    },
-    {
-      id: 2,
-      name: "Step 3",
-      designation: "Upload Image",
-      content: (
-        <p className = "bg-sky-500/30 px-2 py-3 rounded-md">
-          Upload an <Highlight>eye-catching image</Highlight> or logo that
-          represents your startup. A strong visual identity makes your pitch more
-          memorable.
-        </p>
-      ),
-    },
-    {
-      id: 3,
-      name: "Step 4",
-      designation: "Finalize Pitch",
-      content: (
-        <p className = "bg-red-500/30 px-2 py-3 rounded-md">
-          Review all details and <Highlight>finalize your pitch</Highlight>.
-          Ensure everything is perfect before submitting to attract potential
-          investors and users.
-        </p>
-      ),
-    },
-  ];
-  
+  {
+    id: 0,
+    name: "Step 1",
+    designation: "Title",
+    content: (
+      <p className="bg-green-500/30 px-2 py-3 rounded-md">
+        Start by providing the <Highlight>essential title</Highlight> about your
+        startup, including the name, category, or key information that makes it
+        unique.
+      </p>
+    ),
+  },
+  {
+    id: 1,
+    name: "Step 2",
+    designation: "Category",
+    content: (
+      <p className="bg-yellow-500/30 px-2 py-3 rounded-md">
+        Give a <Highlight>Category</Highlight> of your startup. Explain the
+        problem it solves category, how it works, and why it's a game-changer in
+        the industry.
+      </p>
+    ),
+  },
+  {
+    id: 2,
+    name: "Step 3",
+    designation: "Upload Image",
+    content: (
+      <p className="bg-sky-500/30 px-2 py-3 rounded-md">
+        Upload an <Highlight>eye-catching image</Highlight> or logo that
+        represents your startup. A strong visual identity makes your pitch more
+        memorable.
+      </p>
+    ),
+  },
+  {
+    id: 3,
+    name: "Step 4",
+    designation: "Finalize Pitch",
+    content: (
+      <p className="bg-red-500/30 px-2 py-3 rounded-md">
+        Review all details and <Highlight>finalize your pitch</Highlight>.
+        Ensure everything is perfect before submitting to attract potential
+        investors and users.
+      </p>
+    ),
+  },
+];
