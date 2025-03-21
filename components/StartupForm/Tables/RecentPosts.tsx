@@ -24,9 +24,22 @@ import UpdateDialog from "./UpdateDialog";
 import { SquareArrowLeft, SquareArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 
+interface ISheet {
+  isOpen: boolean;
+  setIsOpen: () => void;
+  id: string;
+}
+
 export function RecentPosts({ posts = [] }: { posts: IPost[] }) {
   const isEmpty = posts.length === 0;
+
   const [currentPage, setCurrentPage] = useState(1);
+  const [isOpen, setIsOpen] = useState(false);
+  const [currentId, setCurrentId] = useState("");
+
+  console.log("currentId: ", currentId);
+  console.log("isOpen: ", isOpen);
+  
   const postsPerPage = 5;
 
   const indexOfLastPost = currentPage * postsPerPage;
@@ -38,12 +51,14 @@ export function RecentPosts({ posts = [] }: { posts: IPost[] }) {
   const handleNext = () => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
+      setCurrentId("")
     }
   };
 
   const handlePrev = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
+      setCurrentId("")
     }
   };
 
@@ -96,7 +111,11 @@ export function RecentPosts({ posts = [] }: { posts: IPost[] }) {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, y: 0.95 }}
                   transition={{ duration: 0.3 }}
-                  className="hover:bg-gray-50 transition-colors border-b border-gray-200"
+                  className="hover:bg-gray-50 transition-colors border-b border-gray-200 cursor-pointer"
+                  onClick={() =>{
+                    setCurrentId(post?._id)
+                    setIsOpen(true)
+                  }}
                 >
                   <TableCell className="font-medium text-gray-900">
                     {post.title}

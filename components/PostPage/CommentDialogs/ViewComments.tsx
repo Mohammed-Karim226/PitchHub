@@ -12,16 +12,13 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
-import { client } from "@/sanity/lib/client";
-import { COMMENTS_BY_ID_QUERY } from "@/sanity/lib/queries";
 import {
   CircleUserRound,
   Frown,
   LayoutList,
-  PersonStanding,
   Smile,
 } from "lucide-react";
-import { useEffect, useState } from "react";
+
 import { IComments } from "../PostPage";
 
 const ViewComments = ({ comments }: { comments: IComments[] }) => {
