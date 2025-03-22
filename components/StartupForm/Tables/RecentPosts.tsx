@@ -23,12 +23,7 @@ import DeleteDialog from "./DeleteDialog";
 import UpdateDialog from "./UpdateDialog";
 import { SquareArrowLeft, SquareArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
-
-interface ISheet {
-  isOpen: boolean;
-  setIsOpen: () => void;
-  id: string;
-}
+import ShowDetailsSheet from "./ShowDetailsSheet";
 
 export function RecentPosts({ posts = [] }: { posts: IPost[] }) {
   const isEmpty = posts.length === 0;
@@ -37,9 +32,6 @@ export function RecentPosts({ posts = [] }: { posts: IPost[] }) {
   const [isOpen, setIsOpen] = useState(false);
   const [currentId, setCurrentId] = useState("");
 
-  console.log("currentId: ", currentId);
-  console.log("isOpen: ", isOpen);
-  
   const postsPerPage = 5;
 
   const indexOfLastPost = currentPage * postsPerPage;
@@ -51,14 +43,14 @@ export function RecentPosts({ posts = [] }: { posts: IPost[] }) {
   const handleNext = () => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
-      setCurrentId("")
+      setCurrentId("");
     }
   };
 
   const handlePrev = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
-      setCurrentId("")
+      setCurrentId("");
     }
   };
 
@@ -111,10 +103,10 @@ export function RecentPosts({ posts = [] }: { posts: IPost[] }) {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, y: 0.95 }}
                   transition={{ duration: 0.3 }}
-                  className="hover:bg-gray-50 transition-colors border-b border-gray-200 cursor-pointer"
-                  onClick={() =>{
-                    setCurrentId(post?._id)
-                    setIsOpen(true)
+                  className="hover:bg-gray-50  transition-colors border-b border-gray-200 cursor-pointer"
+                  onClick={() => {
+                    setCurrentId(post?._id);
+                    setIsOpen(true);
                   }}
                 >
                   <TableCell className="font-medium text-gray-900">
@@ -129,10 +121,10 @@ export function RecentPosts({ posts = [] }: { posts: IPost[] }) {
                   <TableCell className="text-center text-gray-700">
                     {parseInt(post?.views ?? 0).toLocaleString()}
                   </TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-right ">
                     <DeleteDialog pitchId={post._id} />
                   </TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-right ">
                     <UpdateDialog pitchId={post._id} />
                   </TableCell>
                 </motion.tr>
@@ -173,6 +165,11 @@ export function RecentPosts({ posts = [] }: { posts: IPost[] }) {
           <SquareArrowRight size={24} />
         </button>
       </CardFooter>
+      <ShowDetailsSheet
+        isOpen={isOpen}
+        setIsOpen={() => setIsOpen(!isOpen)}
+        id={currentId}
+      />
     </Card>
   );
 }
