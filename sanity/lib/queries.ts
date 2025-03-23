@@ -17,7 +17,7 @@ export const STARTUPS_QUERY = defineQuery(`
 `);
 
 export const ALL_POSTS_QUERY = defineQuery(`
-*[_type == "startup"] | order(_createdAt desc) {
+*[_type == "startup" && author._ref == $userId] | order(_createdAt desc) {
   _id,
   title,
   slug,

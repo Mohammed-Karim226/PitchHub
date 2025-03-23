@@ -9,8 +9,17 @@ const page = async () => {
 
   if (!session) redirect("/");
 
+  const userId = session.user?.id || session.id;
+
+  if (!userId) {
+    redirect("/");
+  }
+
+  console.log("User ID:", session.id);
+
   const { data: posts } = await sanityFetch({
     query: ALL_POSTS_QUERY,
+    params: { userId },
   });
 
   return <MainStartup posts={posts} />;
