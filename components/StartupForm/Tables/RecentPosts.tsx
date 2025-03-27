@@ -121,10 +121,10 @@ export function RecentPosts({ posts = [] }: { posts: IPost[] }) {
                   <TableCell className="text-center text-gray-700">
                     {parseInt(post?.views ?? 0).toLocaleString()}
                   </TableCell>
-                  <TableCell className="text-right ">
+                  <TableCell className="text-right hover:cursor-no-drop" onClick={(e) => e.stopPropagation()}>
                     <DeleteDialog pitchId={post._id} />
                   </TableCell>
-                  <TableCell className="text-right ">
+                  <TableCell className="text-right hover:cursor-no-drop" onClick={(e) => e.stopPropagation()}>
                     <UpdateDialog pitchId={post._id} />
                   </TableCell>
                 </motion.tr>

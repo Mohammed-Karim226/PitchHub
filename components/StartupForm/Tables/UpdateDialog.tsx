@@ -117,7 +117,7 @@ const UpdateDialog = memo(({ pitchId }: { pitchId: string }) => {
   return (
     <Sheet onOpenChange={setOpen} open={open}>
       <SheetTrigger asChild>
-        <Button className="rounded-3xl z-50 bg-sky-500/40 hover:bg-sky-500/70 text-slate-500 px-2 h-6 text-[14px] py-1" onClick={(e) => e.stopPropagation()}>
+        <Button className="rounded-3xl z-50 bg-sky-500/40 hover:bg-sky-500/70 text-slate-500 px-2 h-6 text-[14px] py-1">
           Update Post
         </Button>
       </SheetTrigger>

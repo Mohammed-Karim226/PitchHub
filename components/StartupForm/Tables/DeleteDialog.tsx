@@ -67,7 +67,7 @@ const DeleteDialog = memo(({ pitchId }: DeleteDialogProps) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="rounded-3xl z-50 text-slate-500 bg-fuchsia-500/40 hover:bg-fuchsia-500/70 px-2 h-6 text-[14px] py-1" onClick={(e) => e.stopPropagation()}>
+        <Button className="rounded-3xl z-50 text-slate-500 bg-fuchsia-500/40 hover:bg-fuchsia-500/70 px-2 h-6 text-[14px] py-1">
           Delete Post
         </Button>
       </DialogTrigger>

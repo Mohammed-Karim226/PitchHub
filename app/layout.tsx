@@ -4,6 +4,7 @@ import "./globals.css";
 import NProgressProvider from "@/components/Providers/NProgressProvider";
 import Theme from "@/components/Providers/Theme";
 import { Toaster } from "@/components/ui/toaster";
+import InitialLoading from "@/components/Providers/InitialLoading";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -31,10 +32,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Theme>
-          <NProgressProvider>{children}</NProgressProvider>
-          <Toaster />
-        </Theme>
+        <InitialLoading>
+          <Theme>
+            <NProgressProvider>{children}</NProgressProvider>
+            <Toaster />
+          </Theme>
+        </InitialLoading>
       </body>
     </html>
   );
