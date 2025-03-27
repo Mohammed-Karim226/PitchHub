@@ -6,10 +6,9 @@ import {
   LogOut,
   LogIn,
   User,
-  MenuIcon,
   LayoutDashboard,
   Home,
-} from "lucide-react"; // lucide-react icons
+} from "lucide-react";
 
 const NavBar = async () => {
   const session = await auth();

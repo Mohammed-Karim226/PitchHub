@@ -1,5 +1,5 @@
 import Form from "next/form";
-import { Search, X } from "lucide-react"; // Import the search icon from lucide-react or similar
+import { Search, X } from "lucide-react";
 import SearchFormReset from "./SearchFormReset";
 
 const SearchForm = ({ query }: { query?: string }) => {

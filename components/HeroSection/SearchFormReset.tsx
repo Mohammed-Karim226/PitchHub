@@ -1,6 +1,6 @@
 "use client";
 
-import { Search, X } from "lucide-react";
+import { X } from "lucide-react";
 import Link from "next/link";
 
 const SearchFormReset = () => {

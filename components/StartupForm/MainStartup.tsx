@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { IPost } from "../PostPage/PostPage";
 import ChartsAndInfo from "./ChartsAndInfo";
 

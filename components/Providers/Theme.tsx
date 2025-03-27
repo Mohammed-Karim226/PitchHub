@@ -9,24 +9,21 @@ const Theme = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const hasAnimationSeen = localStorage.getItem("hasAnimationSeen");
-    if (!hasAnimationSeen){
+    if (!hasAnimationSeen) {
       setShowAnimation(true);
       localStorage.setItem("hasAnimationSeen", "true");
       const timer = setTimeout(() => {
         setShowAnimation(false);
       }, 3000);
-  
+
       return () => clearTimeout(timer);
     }
-    
   }, []);
 
   return (
     <div>
       {showAnimation ? (
-        <div
-          className="flex justify-center items-center h-[100vh] overflow-hidden"
-        >
+        <div className="flex justify-center items-center h-[100vh] overflow-hidden">
           <div className="w-[500px] h-[500px]">
             <Lottie animationData={animation} loop={false} />
           </div>
