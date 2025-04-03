@@ -42,25 +42,12 @@ const formSchema = z.object({
 });
 
 const UpdateDialog = memo(({ pitchId }: { pitchId: string }) => {
-  const [data, setData] = useState(null);
   const [open, setOpen] = useState(false);
   const [pitch, setPitch] = useState("");
   const [isPending, setIsPending] = useState(false);
   const toast = useToast();
 
   const router = useRouter();
-
-  useEffect(() => {
-    if (open) {
-      const fetchedData = async () => {
-        const fetchedData = await client.fetch(QUERY_BY_ID, { id: pitchId });
-        setData(fetchedData);
-        form.reset(fetchedData);
-        setPitch(fetchedData.pitch);
-      };
-      fetchedData();
-    }
-  }, [pitchId, open]);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -72,6 +59,17 @@ const UpdateDialog = memo(({ pitchId }: { pitchId: string }) => {
       pitch: "",
     },
   });
+
+  useEffect(() => {
+    if (open) {
+      const fetchedData = async () => {
+        const fetchedData = await client.fetch(QUERY_BY_ID, { id: pitchId });
+        form.reset(fetchedData);
+        setPitch(fetchedData?.pitch);
+      };
+      fetchedData();
+    }
+  }, [pitchId, open, form]);
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsPending(true);
@@ -106,12 +104,12 @@ const UpdateDialog = memo(({ pitchId }: { pitchId: string }) => {
   };
   useEffect(() => {
     if (open) {
-      document.body.style.overflow = "hidden"; 
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = ""; 
+      document.body.style.overflow = "";
     }
     return () => {
-      document.body.style.overflow = ""; 
+      document.body.style.overflow = "";
     };
   }, [open]);
   return (
@@ -201,5 +199,7 @@ const UpdateDialog = memo(({ pitchId }: { pitchId: string }) => {
     </Sheet>
   );
 });
+
+UpdateDialog.displayName = "UpdateDialog";
 
 export default UpdateDialog;

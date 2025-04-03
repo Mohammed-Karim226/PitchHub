@@ -85,7 +85,7 @@ const PostForm = () => {
       }
 
       await formSchema.parseAsync(Object.fromEntries(formData));
-      const result = await createPitch(formData, pitch);
+      await createPitch(formData, pitch);
 
       setIsPending(false);
       toast.toast({
@@ -95,9 +95,10 @@ const PostForm = () => {
       form.reset();
       setPitch("");
     } catch (error) {
+      const err = error as { message: string; code: string | number };
       toast.toast({
         title: "Error",
-        description: "There was an issue submitting your startup pitch.",
+        description: `There was an issue submitting your startup pitch. ${err.message}`,
         variant: "destructive",
       });
     }

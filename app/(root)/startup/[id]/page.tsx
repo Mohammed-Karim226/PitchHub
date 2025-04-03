@@ -17,7 +17,7 @@ const page = async ({
 }) => {
   const id = (await params).id;
 
-  const [post, editorPosts] = await Promise.all([
+  const [post] = await Promise.all([
     client.fetch(QUERY_BY_ID, { id }),
     client.fetch(PLAYLIST_BY_SLUG_QUERY, {
       slug: "eco-pass",

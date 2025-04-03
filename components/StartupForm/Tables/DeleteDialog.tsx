@@ -100,4 +100,6 @@ const DeleteDialog = memo(({ pitchId }: DeleteDialogProps) => {
   );
 });
 
+DeleteDialog.displayName = "DeleteDialog";
+
 export default DeleteDialog;

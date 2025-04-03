@@ -110,7 +110,7 @@ const AddComment = ({ id }: { id: string }) => {
             <p className="text-base font-bold text-slate-500">Add Comment</p>
           </DialogTitle>
           <DialogDescription className="text-base text-slate-400 font-normal">
-            Make comments here. Click save when you're done.
+            Make comments here. Click save when you&apos;re done.
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">

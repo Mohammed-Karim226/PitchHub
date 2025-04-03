@@ -1,5 +1,10 @@
 import { IPost } from "@/components/PostPage/PostPage";
-
+interface ICategoryItem {
+  category: string;
+  count: number;
+  views: number;
+  posts?: IPost[];
+}
 export function calculateMetrics(posts: IPost[]) {
   if (!Array.isArray(posts)) {
     return {
@@ -27,7 +32,7 @@ export function calculateMetrics(posts: IPost[]) {
 }
 
 export function prepareCategoryData(posts: IPost[]) {
-  return posts.reduce((acc: any[], post) => {
+  return posts.reduce((acc: ICategoryItem[], post) => {
     const existingCategory = acc.find(
       (item) => item.category === post.category
     );

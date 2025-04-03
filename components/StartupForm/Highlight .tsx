@@ -49,7 +49,7 @@ const CARDS = [
     content: (
       <p className="bg-yellow-500/30 px-2 py-3 rounded-md">
         Give a <Highlight>Category</Highlight> of your startup. Explain the
-        problem it solves category, how it works, and why it's a game-changer in
+        problem it solves category, how it works, and why it&apos;s a game-changer in
         the industry.
       </p>
     ),
