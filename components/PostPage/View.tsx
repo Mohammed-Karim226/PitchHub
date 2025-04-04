@@ -4,7 +4,7 @@ import { QUERY_STARTUP_VIEWS } from "@/sanity/lib/queries";
 import { writeClient } from "@/sanity/lib/write-client";
 import { unstable_after as after } from "next/server";
 
-const MatchedPosts = async ({ id }: { id: string }) => {
+export const getPostViews = async ({ id }: { id: string }) => {
   // Fetch current views from the database
   const { views: currentViews } = await client
     .withConfig({ useCdn: false })
@@ -25,16 +25,7 @@ const MatchedPosts = async ({ id }: { id: string }) => {
       .commit();
   });
   const safeCurrentViews = currentViews ?? 0;
-  return (
-    <div className="flex justify-center items-center">
-      <div className="text-center flex justify-start items-center">
-        <p className="text-base font-normal text-gray-500 mr-1">Views: </p>
-        <h1 className="text-base font-extrabold text-blue-600 transition-all duration-700 ease-in-out animate-pulse">
-          {formatedViews(safeCurrentViews)}
-        </h1>
-      </div>
-    </div>
-  );
+  return {
+    views: formatedViews(safeCurrentViews),
+  }
 };
-
-export default MatchedPosts;

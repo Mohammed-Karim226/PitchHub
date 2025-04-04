@@ -1,4 +1,5 @@
 import PostPage from "@/components/PostPage/PostPage";
+import { getPostViews } from "@/components/PostPage/View";
 import { client } from "@/sanity/lib/client";
 import {
   COMMENTS_BY_ID_QUERY,
@@ -27,9 +28,11 @@ const page = async ({
   const comments = await client.fetch(COMMENTS_BY_ID_QUERY, { id });
   const trendy_post = await client.fetch(TOP_VIEW_POST_BY_ID_QUERY);
 
+  const { views }  = await getPostViews({ id });
+
   if (!post) return notFound();
 
-  return <PostPage post={post} comments={comments} trendy_post={trendy_post} />;
+  return <PostPage post={{...post, views}} comments={comments} trendy_post={trendy_post} />;
 };
 
 export default page;

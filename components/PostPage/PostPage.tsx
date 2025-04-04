@@ -1,10 +1,12 @@
+"use client";
+
 import { Suspense } from "react";
 
 import { ArrowLeftCircle, Calendar1Icon, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Skeleton } from "../ui/skeleton";
-import View from "./View";
+// import View from "./View";
 import markdownit from "markdown-it";
 import AddComment from "./CommentDialogs/AddComment";
 import ViewComments from "./CommentDialogs/ViewComments";
@@ -144,7 +146,7 @@ const PostPage = ({
                 height={21}
               />
               <Suspense fallback={<Skeleton />}>
-                <View id={post?._id} />
+                <span> {post?.views || ""}</span>
               </Suspense>
             </div>
           </div>
