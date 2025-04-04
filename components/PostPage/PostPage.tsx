@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 import { ArrowLeftCircle, Calendar1Icon, User } from "lucide-react";
 import Image from "next/image";
@@ -49,15 +49,13 @@ const PostPage = ({
   comments: IComments[];
   trendy_post: number;
 }) => {
+  const [pitchHTML, setPitchHTML] = useState("");
+  
+ useEffect(() =>{
   const md = markdownit();
-
-  const renderPitchContent = (pitch: string) => {
-    const rawHTML = md.render(pitch);
-
-    return rawHTML;
-  };
-
-  const pitchHTML = renderPitchContent(post.pitch);
+  const rawHTML = md.render(post?.pitch);
+  setPitchHTML(rawHTML);
+ }, [post?.pitch])
 
   return (
     <section className="bg-gray-50 h-full relative py-12 px-6 md:px-12 lg:px-20">
