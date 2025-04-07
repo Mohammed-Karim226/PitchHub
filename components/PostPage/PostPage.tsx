@@ -6,7 +6,6 @@ import { ArrowLeftCircle, Calendar1Icon, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Skeleton } from "../ui/skeleton";
-// import View from "./View";
 import markdownit from "markdown-it";
 import AddComment from "./CommentDialogs/AddComment";
 import ViewComments from "./CommentDialogs/ViewComments";
