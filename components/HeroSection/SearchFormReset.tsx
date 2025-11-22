@@ -5,8 +5,10 @@ import Link from "next/link";
 
 const SearchFormReset = () => {
   const handleReset = () => {
-    const form = document.querySelector(".search-form") as HTMLFormElement;
-    if (form) form.reset();
+    if (typeof document !== "undefined") {
+      const form = document.querySelector(".search-form") as HTMLFormElement;
+      if (form) form.reset();
+    }
   };
 
   return (
