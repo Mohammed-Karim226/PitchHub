@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Eye, Clock, Loader } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion"; // Import motion from framer-motion
+import { motion } from "framer-motion";
 import { Button } from "../ui/button";
 import { Author, Startup } from "@/sanity/types";
 import { formatedViews } from "@/lib/utils";
@@ -17,7 +17,7 @@ const StartUpCard = ({ post }: { post: IPost }) => {
   const router = useRouter();
 
   const handleNavigate = (url: string) => {
-    setIsLoading(true); 
+    setIsLoading(true);
     router.push(url);
   };
 
@@ -57,7 +57,10 @@ const StartUpCard = ({ post }: { post: IPost }) => {
           >
             {post?.author?.name}
           </Link>
-          <Link href={`/startup/${post?._id}`} className="w-[70%] h-auto text-ellipsis">
+          <Link
+            href={`/startup/${post?._id}`}
+            className="w-[70%] h-auto text-ellipsis"
+          >
             <h1 className="text-2xl  font-semibold text-gray-900 text-ellipsis leading-snug hover:text-black transition-colors duration-200">
               {post?.title}
             </h1>
@@ -92,48 +95,52 @@ const StartUpCard = ({ post }: { post: IPost }) => {
 
       {/* Category and Button */}
       <div className="flex w-full justify-between items-center">
-  <Link
-    href={`/?query=${post?.category.toLowerCase()}`}
-    className="relative inline-flex items-center justify-center overflow-hidden text-indigo-600 rounded-2xl border border-indigo-600 hover:border-slate-300 transition-all duration-300 group"
-  >
-    <p
-      className="relative text-sm font-medium capitalize px-4 py-2 bg-transparent transition-colors duration-200 rounded-xl 
+        <Link
+          href={`/?query=${post?.category.toLowerCase()}`}
+          className="relative inline-flex items-center justify-center overflow-hidden text-indigo-600 rounded-2xl border border-indigo-600 hover:border-slate-300 transition-all duration-300 group"
+        >
+          <p
+            className="relative text-sm font-medium capitalize px-4 py-2 bg-transparent transition-colors duration-200 rounded-xl 
       group-hover:text-slate-100 group-hover:bg-indigo-600 flex items-center gap-1"
-    >
-        {post?.category}
-    </p>
-  </Link>
+          >
+            {post?.category}
+          </p>
+        </Link>
 
-  <Button
-    className="relative rounded-3xl group px-4 py-2 bg-indigo-600 text-white font-semibold border border-indigo-600 transition-all duration-300 ease-in-out 
+        <Button
+          className="relative rounded-3xl group px-4 py-2 bg-indigo-600 text-white font-semibold border border-indigo-600 transition-all duration-300 ease-in-out 
     hover:bg-indigo-700 flex items-center gap-2 overflow-hidden"
-    onClick={() => handleNavigate(`/startup/${post?._id}`)}
-    disabled={isLoading}
-  >
-    {isLoading ? (
-      <Loader className="animate-spin text-white" width={20} height={20} />
-    ) : (
-      <>
-        <motion.span
-          initial={{ x: -10, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.3 }}
-          className="text-sm"
+          onClick={() => handleNavigate(`/startup/${post?._id}`)}
+          disabled={isLoading}
         >
-          Details
-        </motion.span>
-        <motion.span
-          initial={{ x: 10, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.3, delay: 0.1 }}
-          className="group-hover:translate-x-1 transition-transform duration-300"
-        >
-          🚀
-        </motion.span>
-      </>
-    )}
-  </Button>
-</div>
+          {isLoading ? (
+            <Loader
+              className="animate-spin text-white"
+              width={20}
+              height={20}
+            />
+          ) : (
+            <>
+              <motion.span
+                initial={{ x: -10, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.3 }}
+                className="text-sm"
+              >
+                Details
+              </motion.span>
+              <motion.span
+                initial={{ x: 10, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.3, delay: 0.1 }}
+                className="group-hover:translate-x-1 transition-transform duration-300"
+              >
+                🚀
+              </motion.span>
+            </>
+          )}
+        </Button>
+      </div>
     </motion.div>
   );
 };

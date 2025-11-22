@@ -15,8 +15,6 @@ const page = async () => {
     redirect("/");
   }
 
-  console.log("User ID:", session.id);
-
   const { data: posts } = await sanityFetch({
     query: ALL_POSTS_QUERY,
     params: { userId },
