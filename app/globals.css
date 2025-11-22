@@ -98,3 +98,28 @@ body {
 #nprogress .spinner {
   display: none !important;
 }
+
+@keyframes gradient-flow {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(180deg); }
+}
+.animate-gradient-flow {
+  animation: gradient-flow 15s ease infinite;
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 0.5; transform: scale(1.2); }
+}
+.animate-twinkle {
+  animation: twinkle 4s ease-in-out infinite;
+}
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-*, motion * { animation: none !important; transform: none !important; }
+}
